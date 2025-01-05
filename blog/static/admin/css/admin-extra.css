@@ -4,8 +4,22 @@
     max-width: 100%;
     display:flex;
     justify-content:center;
+    flex-wrap: wrap;
 }
 
 #content > h1 {
     text-align:center;
 }
+
+.messagelist {
+    position:fixed;
+    bottom: 0px;
+}
+
+
+/* This is for testing only */
+/* 
+html[data-theme="dark"], :root {
+    --body-bg: #454545;
+}
+*/
