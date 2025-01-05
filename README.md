@@ -17,9 +17,13 @@ Changes from the tutorial:
 * Did not implement the comments section.
 * Implemented static files for css.
 * Centered the admin panel.
+* Media config worked in dev, but then I removed CKEditor.
 
 Things that I will eventually experiment with:
 
 * Should probably limit how many posts show on the front page, with forward and backward navigation links.
-* Rich-text editor, with image-uploading capabilities.
-* Commented out section for media files. Haven't tested that functionality yet.
+* Image-uploading capabilities.
+
+## Things I've Ruled Out
+
+* CKEditor. Not only is there an annoying message that says the package is unsupported and has security vulnerabilities, but I'm not looking for a fully-featured editor that is going to be a pain to configure. I need a way to manage image uploads, and I'll be happy with a markdown editor that plays well with the Django admin panel.
