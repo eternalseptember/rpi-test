@@ -10,14 +10,16 @@ Created a `.env` file, added it to `.gitignore`, and used [Python Decouple](http
 
 ## Tutorial
 
-Project is loosely based on [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project). Using this as an inspiration for my personal blog project.
+Project is based on [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project) that I'll be using as an inspiration for my personal blog project.
+
+Changes from the tutorial:
 
 * Did not implement the comments section.
 * Implemented static files for css.
+* Centered the admin panel.
 
 Things that I will eventually experiment with:
 
 * Should probably limit how many posts show on the front page, with forward and backward navigation links.
-* Centering the admin panel.
 * Rich-text editor, with image-uploading capabilities.
 * Commented out section for media files. Haven't tested that functionality yet.

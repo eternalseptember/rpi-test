@@ -1,0 +1,11 @@
+/* this should be the same thing as ".main > .content" */
+#content-start {
+    flex:  1 0;
+    max-width: 100%;
+    display:flex;
+    justify-content:center;
+}
+
+#content > h1 {
+    text-align:center;
+}
