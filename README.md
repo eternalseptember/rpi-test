@@ -10,15 +10,15 @@ Created a `.env` file, added it to `.gitignore`, and used [Python Decouple](http
 
 ## Blog Tutorial
 
-The foundation of this blog project is based on [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project), which I'll be using as an inspiration for my personal blog project. I did not not implement the comments section.
+The foundation of this blog project is based on [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project), which I'll be using as an inspiration for my personal blog project. I did not implement the comments section.
 
 In addition:
 
 * Implemented static files for css and javascript.
 * Centered the admin panel.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
-* Markdown editor in the body of the post.
-* Media (i.e. image uploading) works in dev.
+* Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post.
+* Enabled image upload to the media folder.
 
 Things that I will eventually experiment with:
 
