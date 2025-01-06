@@ -25,7 +25,7 @@ class Post(models.Model):
     # Create a property that returns the markdown instead
     @property
     def formatted_markdown(self):
-        return markdownify(self.body).replace('<p></p>', '')
+        return markdownify(self.body)
 
 
     def __str__(self):
