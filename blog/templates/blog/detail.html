@@ -11,7 +11,6 @@
             <a href="{% url 'blog_category' category.name %}">{{ category.name | safe }}</a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
     </small>
-    <p>{{ post.body | linebreaks }}</p>
-
+    <p>{{ post.formatted_markdown | safe }}</p>
 {% endblock page_content %}
 
