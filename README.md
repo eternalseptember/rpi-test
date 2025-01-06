@@ -44,7 +44,7 @@ from markdownx.utils import markdownify
 # In the class with the markdown object:
     @property
     def formatted_markdown(self):
-        return markdownify(self.body).replace('<p></p>', '')
+        return markdownify(self.body)
 ```
 
 In the index template:
