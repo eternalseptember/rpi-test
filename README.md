@@ -30,6 +30,33 @@ Things that I will eventually experiment with:
 
 ## Problems I Had
 
+### Markdown was not Displaying Images
+
+I followed the steps to install and add Markdownx to the project, and was able to get images uploaded and shown in the preview, but after the post was made, the image was not rendered. Instead, a markdown code with the image path was displayed instead.
+
+The solution was to create a property in the model that applies `markdownify` onto the post, and then render that property in the template.
+
+In `models.py`:
+
+```
+from markdownx.utils import markdownify
+
+# In the class with the markdown object:
+    @property
+    def formatted_markdown(self):
+        return markdownify(self.body).replace('<p></p>', '')
+```
+
+In the index template:
+
+```
+<p>{{ post.formatted_markdown | safe }}</p>
+```
+
+More info [here](https://stackoverflow.com/questions/42416123/i-cant-understand-the-django-markdownxs-usage/42418210#42418210) and [here](https://bastakiss.com/blog/django-6/how-to-render-markdown-content-in-django-388).
+
+### Stray Paragraph Tag
+
 While messing with CKEditor and Markdownx, posts started rendering with an extra paragraph tag at the very beginning, and browsers try to complete it by ending it with a paragraph tag somewhere. There was an extra `<p>` at the very beginning of the post body, so the browser adds a closing `</p>` there, and for some reason, there's another set of `<p></p>` at the very end of the post body? This is a consequence of both Markdown and CKEditor... html generation quirks.
 
 The css solution of
