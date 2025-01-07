@@ -10,11 +10,11 @@
     <script src="{% static "blog/jquery-3.7.1.min.js" %}"></script>
 </head>
 <body>
-    <h1>My Personal Blog</h1>
-    <a href="{% url "blog_index" %}">Home</a>
+    <h1><a href="{% url "blog_index" %}">My Personal Blog</a></h1>
     <hr>
     {% block page_title %}{% endblock page_title %}
     {% block page_content %}{% endblock page_content %}
+    <hr>
     {% block page_navigation %}{% endblock page_navigation %}
 
     <script src="{% static "blog/remove_p.js" %}"></script>
