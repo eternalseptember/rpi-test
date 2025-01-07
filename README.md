@@ -14,7 +14,7 @@ The foundation of this blog project is based on [this tutorial](https://realpyth
 
 In addition:
 
-* Set the time_zone in `settings.py`.
+* Set the `TIME_ZONE` in `settings.py`.
 * Implemented static files for css and javascript.
 * Centered the admin panel.
 * Alphabetized the categories list in the admin panel.
