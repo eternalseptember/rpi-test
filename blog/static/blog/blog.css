@@ -1,6 +1,9 @@
 h1 {
-    text-align:center;
+    text-align: center;
 }
 .pagination {
-    text-align:center;
+    text-align: center;
+}
+.searchform {
+    text-align: right;
 }

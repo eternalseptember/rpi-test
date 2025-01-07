@@ -11,6 +11,14 @@
 </head>
 <body>
     <h1><a href="{% url "blog_index" %}">My Personal Blog</a></h1>
+
+    <div class="searchform">
+        <form method="GET" action="{% url 'search' %}"">
+            <input type="text" name="q" placeholder="Search">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
     <hr>
     {% block page_title %}{% endblock page_title %}
     {% block page_content %}{% endblock page_content %}

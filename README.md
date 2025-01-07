@@ -24,10 +24,11 @@ In addition:
 * Enabled image upload to the media folder.
 * Pagination on the index page and category page.
 * Next/Prev links on each entry's page.
+* Paginated search results.
 
 Things that I will eventually experiment with:
 
-* search function
+* archives or indexes of posts by `/MMMM/YY/DD`
 
 ## Things I've Ruled Out
 
