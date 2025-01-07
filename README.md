@@ -21,10 +21,11 @@ In addition:
 * Made the date and time editable fields, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post.
 * Enabled image upload to the media folder.
+* Pagination on the index page.
 
 Things that I will eventually experiment with:
 
-* Limiting how many posts show on the front page, with forward and backward navigation links.
+* next/prev links on each entry's page.
 
 ## Things I've Ruled Out
 
