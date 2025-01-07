@@ -21,12 +21,11 @@ In addition:
 * Made the date and time editable fields, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post, and made the preview collapsible.
 * Enabled image upload to the media folder.
-* Pagination on the index page.
+* Pagination on the index page and category page.
 
 Things that I will eventually experiment with:
 
 * next/prev links on each entry's page.
-* pagination on the category page.
 
 ## Things I've Ruled Out
 
