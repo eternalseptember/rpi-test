@@ -26,6 +26,7 @@ In addition:
 Things that I will eventually experiment with:
 
 * next/prev links on each entry's page.
+* pagination on the category page.
 
 ## Things I've Ruled Out
 
