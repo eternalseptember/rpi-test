@@ -4,6 +4,21 @@ h1 {
 .pagination {
     text-align: center;
 }
-.searchform {
-    text-align: right;
+.top_nav_bar {
+    margin:0px;
+    position:relative;
+    height:35px;
 }
+.nav_links {
+    text-align: left;
+    position:absolute;
+    bottom:-4px;
+    left:0px;
+}
+.search_form {
+    text-align: right;
+    position:absolute;
+    bottom:-7px;
+    right:0px;
+}
+
