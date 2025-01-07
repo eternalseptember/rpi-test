@@ -1,5 +1,4 @@
 from django.db import models
-import datetime
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 

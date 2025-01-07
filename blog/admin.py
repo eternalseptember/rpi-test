@@ -4,7 +4,7 @@ from markdownx.admin import MarkdownxModelAdmin
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    ordering = ['name']
 
 class PostAdmin(admin.ModelAdmin):
     pass
