@@ -14,9 +14,11 @@ The foundation of this blog project is based on [this tutorial](https://realpyth
 
 In addition:
 
+* Set the time_zone in `settings.py`.
 * Implemented static files for css and javascript.
 * Centered the admin panel.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
+* Made the date and time editable fields, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post.
 * Enabled image upload to the media folder.
 
