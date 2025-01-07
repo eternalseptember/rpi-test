@@ -19,7 +19,7 @@ In addition:
 * Centered the admin panel.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
 * Made the date and time editable fields, and made the datetime widget into a single line.
-* Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post.
+* Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post, and made the preview collapsible.
 * Enabled image upload to the media folder.
 * Pagination on the index page.
 
