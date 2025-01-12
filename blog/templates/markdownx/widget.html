@@ -4,10 +4,10 @@
     <div class="markdownx-preview" style="display:none"></div>
 
     <script>
-        var mdx_toggle_events = document.getElementsByClassName("mdx_preview_toggle");
+        var mdx_toggles = document.getElementsByClassName("mdx_preview_toggle");
         
-        for (var i = 0; i < mdx_toggle_events.length; i++) {
-            mdx_toggle_events[i].addEventListener("click", function() {
+        for (var i = 0; i < mdx_toggles.length; i++) {
+            mdx_toggles[i].addEventListener("click", function() {
                 var content = this.nextElementSibling;
                 if (content.style.display === "block") {
                     content.style.display = "none";
