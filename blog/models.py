@@ -1,6 +1,7 @@
 from django.db import models
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from django.utils.timezone import now
 
 
 class Category(models.Model):
@@ -15,7 +16,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    created_on = models.DateTimeField()
+    created_on = models.DateTimeField(default=now)
     last_modified = models.DateTimeField(auto_now=True)
     body = MarkdownxField()
     categories = models.ManyToManyField("Category", related_name="posts")

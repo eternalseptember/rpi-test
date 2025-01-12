@@ -2,24 +2,28 @@
 #content-start {
     flex:  1 0;
     max-width: 100%;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
 #content > h1 {
-    text-align:center;
+    text-align: center;
 }
 
 .messagelist {
-    position:fixed;
+    position: fixed;
     bottom: 0px;
+}
+
+.actions {
+    text-align: center;
 }
 
 
 /* This is for testing only */
-/* 
+/*
 html[data-theme="dark"], :root {
-    --body-bg: #454545;
+    --body-bg: #CD5C5C;
 }
 */
