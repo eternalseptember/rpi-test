@@ -20,7 +20,8 @@ In addition:
 * Centered the admin panel.
 * Centered the change form action buttons in the admin panel.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
-* Alphabetized the categories list in the admin panel.
+* Categories list in the admin panel is alphabetized and shows the number of posts in that category.
+* The change view of a category has the list of posts in that category, and each post is a link to that post's edit page.
 * Display each post's dates created and modified in the admin panel (which made those sections sortable), and display the list of posts by creation date in descending order.
 * Added a search for the post's title and filters on dates in the admin panel.
 * Moved the change form actions for posts to the bottom in the admin panel.

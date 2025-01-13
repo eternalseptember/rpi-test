@@ -20,6 +20,10 @@
     text-align: center;
 }
 
+.category_posts_list {
+    margin: 0;
+    padding-left: 0;
+}
 
 /* This is for testing only */
 /*
