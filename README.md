@@ -67,7 +67,7 @@ In the index template:
 <p>{{ post.formatted_markdown | safe }}</p>
 ```
 
-Sources (because we're all victims of Google's personalized search algorithms):
+#### Sources (because we're all victims of Google's personalized search algorithms):
 
 * [I can't understand the django-markdownx's usage](https://stackoverflow.com/questions/42416123/i-cant-understand-the-django-markdownxs-usage/42418210#42418210) Search result I found on duckduckgo.
 * [How to Render Markdown Content in Django](https://bastakiss.com/blog/django-6/how-to-render-markdown-content-in-django-388) Search result I found on duckduckgo.
