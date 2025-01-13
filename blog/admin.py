@@ -34,10 +34,8 @@ class CategoryAdmin(admin.ModelAdmin):
     @classmethod
     def links_to_posts(cls, objects_list):
         posts_list = '<ol class="category_posts_list">'
-        num_of_posts = len(objects_list)
 
-        for i in range(num_of_posts):
-            post = objects_list[i]
+        for post in objects_list:
             link = reverse('admin:%s_%s_change'%(post._meta.app_label, post._meta.model_name), args=[post.id])
             posts_list += '<li><a href="%s">%s</a>'%(link, post.title)
         
