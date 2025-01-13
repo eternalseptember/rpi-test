@@ -20,9 +20,15 @@
     text-align: center;
 }
 
+/* This is for a custom function. */
 .category_posts_list {
     margin: 0;
     padding-left: 0;
+}
+
+textarea {
+    max-height: 300px !important;
+    overflow-y: scroll;
 }
 
 /* This is for testing only */
