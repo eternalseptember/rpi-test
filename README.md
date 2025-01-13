@@ -23,6 +23,7 @@ In addition:
 * Categories list in the admin panel is alphabetized and shows the number of posts in that category, and both columns are sortable.
 * The change view of a category has the list of posts in that category, and each post is a link to that post's edit page.
 * Display each post's dates created and modified in the admin panel (which made those sections sortable), and display the list of posts by creation date in descending order.
+* In the admin panel and in the post's edit page, there's a link to that post's public detail page.
 * Added a search for the post's title and filters on dates in the admin panel.
 * Moved the change form actions for posts to the bottom in the admin panel.
 * Made the created_on date/time editable fields, with the current date/time as the default, and made the datetime widget into a single line.

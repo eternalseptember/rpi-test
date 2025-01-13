@@ -53,7 +53,8 @@ class CategoryAdmin(admin.ModelAdmin):
 class PostAdmin(MarkdownxModelAdmin):
     actions_on_top = False
     actions_on_bottom = True
-    list_display = ('title', 'created_on', 'last_modified')
+    list_display = ('title', 'created_on', 'last_modified', 'view_post')
+    readonly_fields = ['view_post']
     ordering = ['-created_on']
     search_fields = ['title']
     list_filter = ('created_on', 'last_modified')
@@ -63,4 +64,9 @@ class PostAdmin(MarkdownxModelAdmin):
         form = super(PostAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['title'].widget.attrs['style'] = 'width: 45em;'
         return form
+
+    def view_post(self, obj):
+        link_url = reverse('blog_detail', kwargs={"pk": obj.id})
+        link = '<a href="%s" target="_blank">view</a>'%(link_url)
+        return format_html(link)
 
