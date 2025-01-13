@@ -40,9 +40,6 @@ class CategoryAdmin(admin.ModelAdmin):
             post = objects_list[i]
             link = reverse('admin:%s_%s_change'%(post._meta.app_label, post._meta.model_name), args=[post.id])
             posts_list += '<li><a href="%s">%s</a>'%(link, post.title)
-
-            if (i+1) < num_of_posts:
-                posts_list += '<br>'
         
         posts_list += '</ol>'
         return format_html(posts_list)
