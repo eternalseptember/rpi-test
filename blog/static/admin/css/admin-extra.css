@@ -7,19 +7,24 @@
     flex-wrap: wrap;
 }
 
+/* "Site Administration" or "Select ___ to change" headers. */
 #content > h1 {
     text-align: center;
 }
 
+/* The success/error messages when creating/editing a post. */
 .messagelist {
     position: fixed;
     bottom: 0px;
 }
 
+/* Label, dropdown menu, "Go" button, and number of items selected
+   when looking at a model's overview page. */
 .actions {
     text-align: center;
 }
 
+/* Textbox while creating/editing a post. */
 textarea {
     max-height: 300px !important;
     overflow-y: scroll;

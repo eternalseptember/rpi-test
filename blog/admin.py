@@ -10,12 +10,16 @@ from django.db.models import Count
 # Accepts lists or tuples. I use a list for a tuple of one object.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    # Model overview management page.
     list_display = ('name', 'post_count')
     ordering = ['name']
     list_per_page = 20
+
+    # When adding or editing a category.
     readonly_fields = ['get_posts']
 
-    # Gets the number of posts in a category.
+
+    # Gets the number of posts in a category and make this column sortable.
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         return queryset.annotate(post_count=Count("posts"))
@@ -47,29 +51,37 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(MarkdownxModelAdmin):
-    actions_on_top = False
-    actions_on_bottom = True
+    # Model overview management page.
     list_display = ('title', 'created_on', 'last_modified', 'view_post')
     ordering = ['-created_on']
     list_per_page = 20
-    readonly_fields = ['view_post']
+    actions_on_top = False
+    actions_on_bottom = True
     search_fields = ['title']
     list_filter = ('created_on', 'last_modified')
+
+    # When adding or editing a post.
+    readonly_fields = ['view_post']
     filter_horizontal = ['categories']
 
+
+    # Resizes the title's text box.
     def get_form(self, request, obj=None, **kwargs):
         form = super(PostAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['title'].widget.attrs['style'] = 'width: 45em;'
         return form
-    
+
+    # Link to the published post.
+    def view_post(self, obj):
+        link_url = reverse('blog_detail', kwargs={"pk": obj.id})
+        link = '<a href="%s" target="_blank">view</a>'%(link_url)
+        return format_html(link)
+
+    # Resolves the error message when creating a new post,
+    # because there is no link to the published post yet.
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return ['view_post']
         else:
             return []
-
-    def view_post(self, obj):
-        link_url = reverse('blog_detail', kwargs={"pk": obj.id})
-        link = '<a href="%s" target="_blank">view</a>'%(link_url)
-        return format_html(link)
 
