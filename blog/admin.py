@@ -59,6 +59,12 @@ class PostAdmin(MarkdownxModelAdmin):
         form = super(PostAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['title'].widget.attrs['style'] = 'width: 45em;'
         return form
+    
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ['view_post']
+        else:
+            return []
 
     def view_post(self, obj):
         link_url = reverse('blog_detail', kwargs={"pk": obj.id})
