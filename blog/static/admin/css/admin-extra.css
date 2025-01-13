@@ -1,4 +1,4 @@
-/* this should be the same thing as ".main > .content" */
+/* This should be the same thing as ".main > .content". */
 #content-start {
     flex:  1 0;
     max-width: 100%;
@@ -20,17 +20,22 @@
     text-align: center;
 }
 
+textarea {
+    max-height: 300px !important;
+    overflow-y: scroll;
+}
+
+
+/* ********************************************************** */
 /* This is for a custom function. */
 .category_posts_list {
     margin: 0;
     padding-left: 0;
 }
 
-textarea {
-    max-height: 300px !important;
-    overflow-y: scroll;
-}
 
+
+/* ********************************************************** */
 /* This is for testing only */
 /*
 html[data-theme="dark"], :root {
