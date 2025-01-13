@@ -10,8 +10,9 @@ from django.db.models import Count
 # Accepts lists or tuples. I use a list for a tuple of one object.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    ordering = ['name']
     list_display = ('name', 'post_count')
+    ordering = ['name']
+    list_per_page = 20
     readonly_fields = ['get_posts']
 
     # Gets the number of posts in a category.
@@ -49,8 +50,9 @@ class PostAdmin(MarkdownxModelAdmin):
     actions_on_top = False
     actions_on_bottom = True
     list_display = ('title', 'created_on', 'last_modified', 'view_post')
-    readonly_fields = ['view_post']
     ordering = ['-created_on']
+    list_per_page = 20
+    readonly_fields = ['view_post']
     search_fields = ['title']
     list_filter = ('created_on', 'last_modified')
     filter_horizontal = ['categories']
