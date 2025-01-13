@@ -5,7 +5,7 @@ from django.utils.timezone import now
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, verbose_name='category name')
 
     class Meta:
         verbose_name_plural = "categories"
