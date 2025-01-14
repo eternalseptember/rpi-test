@@ -1,21 +1,19 @@
 {% extends "blog/base.html" %}
 
 {% block page_content %}
-    {% block posts %}
-        {% for post in page_obj %}
-            <h3><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3>
-            <small>
-                {{ post.created_on.date }} | Categories:
-                {% for category in post.categories.all %}
-                    {% comment %}
-                    the following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
-                    {% endcomment %}
-                    <a href="{% url 'blog_category' category.name %}">{{ category.name | safe }}</a>{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </small>
-            <p>{{ post.formatted_markdown | safe }}</p>
-        {% endfor %}
-    {% endblock posts %}
+    {% for post in page_obj %}
+        <h3><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3>
+        <small>
+            {{ post.created_on.date }} | Categories:
+            {% for category in post.categories.all %}
+                {% comment %}
+                the following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
+                {% endcomment %}
+                <a href="{% url 'blog_category' category.name %}">{{ category.name | safe }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </small>
+        <p>{{ post.formatted_markdown | safe }}</p>
+    {% endfor %}
 {% endblock page_content %}
 
 
