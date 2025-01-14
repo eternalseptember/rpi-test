@@ -14,5 +14,7 @@
         <li><a href="{% url "archive_month" year=2025 month=1 %}">Jan 2025 Archive</a></li>
         <li><a href="{% url "archive_day" year=2025 month=1 day=5 %}">Lots of test posts on Jan 5, 2025</a></li>
     </ul>
+
+    {{ cal | safe }}
 {% endblock page_content %}
 

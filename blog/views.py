@@ -3,8 +3,9 @@ from blog.models import Post, Category
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views.generic.base import TemplateView
-from datetime import date
+from datetime import date, datetime
 from django.db.models.functions import TruncMonth
+from calendar import HTMLCalendar
 
 
 def blog_index(request):
@@ -133,6 +134,16 @@ class ArchiveYearView(TemplateView):
 
 class ArchiveView(TemplateView):
     template_name = "blog/archive.html"
+
+    def get_context_data(self, **kwargs):
+        year = datetime.now().year
+        month = datetime.now().month
+        cal = HTMLCalendar().formatmonth(year, month)
+
+        context = {
+            "cal": cal
+        }
+        return context
 
 
 
