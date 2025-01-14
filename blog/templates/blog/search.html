@@ -1,5 +1,9 @@
 {% extends "blog/index.html" %}
 
+{% block site_title %}
+    <title>My Personal Blog | Search: {{ query }}</title>
+{% endblock site_title %}
+
 {% block page_title %}
     <h2>search: {{ query }}</h2>
 {% endblock page_title %}
