@@ -1,7 +1,7 @@
 {% extends "blog/index.html" %}
 
 {% block site_title %}
-    <title>My Personal Blog | {{ date }}</title>
+    <title>My Personal Blog | {{ date | date:"M j, Y" }}</title>
 {% endblock site_title %}
 
 {% block page_title %}
