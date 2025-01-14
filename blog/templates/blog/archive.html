@@ -1,4 +1,4 @@
-{% extends "blog/index.html" %}
+{% extends "blog/base.html" %}
 
 {% block site_title %}
     <title>My Personal Blog | Archives</title>
@@ -16,11 +16,3 @@
     </ul>
 {% endblock page_content %}
 
-
-{% block page_navigation %}
-    <div class="pagination">
-        <span class="step-links">
-            <span class="current">~</span>
-        </span>
-    </div>
-{% endblock page_navigation %}
