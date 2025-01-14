@@ -39,10 +39,13 @@ h1 {
 }
 
 /* Printed HTML Calendar */
-table.month {
-    width: 30%;
+table.month, table.year {
+    /* width: 30%; */
     table-layout: fixed;
     border-collapse: collapse;
+}
+th.year {
+    text-align: center;
 }
 .noday, .sun, .mon, .tue, .wed, .thu, .fri, .sat, .month {
     text-align: center;
