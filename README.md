@@ -46,13 +46,15 @@ The foundation of this blog project is based on [this tutorial](https://realpyth
 * Pagination on the index page and category page.
 * Next/Prev links on each entry's page.
 * Paginated search results.
-* Paginated daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
-* Monthly index of posts (date and post titles only) at `/archive/YYYY/MM/`.
+* Archives page with links to the following archives... That are mostly here for testing convenience:
+    * Paginated daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
+    * Monthly index of posts (date and post titles only) at `/archive/YYYY/MM/`.
+    * Yearly index of posts (date and post titles only), with month headings, at `/archive/YYYY/`.
+        * Haven't actually created data across multiple months yet.
 
 ### Things that I will eventually experiment with
 
-* Yearly index of posts (date and post titles only), with month headings, at `/archive/YYYY/`.
-* Search posts on dates.
+* Search posts by date and/or date range.
 
 ## Things I've Ruled Out
 

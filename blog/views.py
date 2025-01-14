@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views.generic.base import TemplateView
 from datetime import date
+from django.db.models.functions import TruncMonth
 
 
 def blog_index(request):
@@ -69,15 +70,17 @@ class ArchiveDayView(TemplateView):
     template_name = "blog/archive_day.html"
 
     def get_context_data(self, *args, **kwargs):
-        year = self.kwargs['year']
-        month = self.kwargs['month']
-        day = self.kwargs['day']
+        year = self.kwargs["year"]
+        month = self.kwargs["month"]
+        day = self.kwargs["day"]
         day_date = date(year, month, day)
 
         search_results = Post.objects.filter(
             created_on__date = day_date
             ).order_by("-created_on")
 
+        # This is paginated because of test data entry.
+        # This will not be paginated on the real project.
         paginator = Paginator(search_results, 5)
         page_number = self.request.GET.get("page")
         page_obj = paginator.get_page(page_number)
@@ -93,8 +96,8 @@ class ArchiveMonthView(TemplateView):
     template_name = "blog/archive_month.html"
 
     def get_context_data(self, *args, **kwargs):
-        year = self.kwargs['year']
-        month = self.kwargs['month']
+        year = self.kwargs["year"]
+        month = self.kwargs["month"]
 
         search_results = Post.objects.filter(
             created_on__year = year,
@@ -108,6 +111,23 @@ class ArchiveMonthView(TemplateView):
         return context
 
 
+class ArchiveYearView(TemplateView):
+    template_name = "blog/archive_year.html"
+
+    def get_context_data(self, *args, **kwargs):
+        year = self.kwargs["year"]
+
+        search_results = Post.objects.filter(
+            created_on__year = year
+            ).order_by("created_on") \
+            .annotate(month=TruncMonth("created_on"))
+
+
+        context = {
+            "year": year,
+            "page_obj": search_results,
+        }
+        return context
 
 
 class ArchiveView(TemplateView):

@@ -1,15 +1,19 @@
 {% extends "blog/index.html" %}
 
 {% block site_title %}
-    <title>My Personal Blog | Archive</title>
+    <title>My Personal Blog | Archives</title>
 {% endblock site_title %}
 
 {% block page_title %}
-    <h2>Archive</h2>
+    <h2>Archives</h2>
 {% endblock page_title %}
 
 {% block page_content %}
-    <p>Placeholder link. Maybe eventually a search box for dates or a calendar.</p>
+    <ul class="archive_index">
+        <li><a href="{% url "archive_year" year=2025 %}">Year 2025 Archive</a></li>
+        <li><a href="{% url "archive_month" year=2025 month=1 %}">Jan 2025 Archive</a></li>
+        <li><a href="{% url "archive_day" year=2025 month=1 day=5 %}">Lots of test posts on Jan 5, 2025</a></li>
+    </ul>
 {% endblock page_content %}
 
 

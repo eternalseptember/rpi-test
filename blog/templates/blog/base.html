@@ -16,18 +16,11 @@
 
     <div class="top_nav_bar">
         <div class="nav_links">
-
-            <a href="{% url "blog_archive" %}">Archive</a>
-
-
-            <!-- For testing convenience. -->
-            <!--
-            <a href="{% url "archive_month" year=2025 month=1 %}">Month Archive</a>
-            -->
+            <a href="{% url "blog_archive" %}">Archives</a>
         </div>
 
         <div class="search_form">
-            <form method="GET" action="{% url 'search' %}"">
+            <form method="GET" action="{% url 'blog_search' %}"">
                 <input type="text" name="q" placeholder="Search">
                 <button type="submit">Search</button>
             </form>

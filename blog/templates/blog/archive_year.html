@@ -1,0 +1,43 @@
+{% extends "blog/index.html" %}
+
+{% block site_title %}
+    <title>My Personal Blog | {{ year }}</title>
+{% endblock site_title %}
+
+{% block page_title %}
+    <h2>{{ year }}</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+    {% if page_obj %}
+        {% regroup page_obj by month as post_months %}
+        <!-- Regroup produces a list of group objects. 
+         Each group object has two attributes: grouper and list. -->
+
+        {% for monthly in post_months %}
+            <h3>{{ monthly.grouper | date:"F" }}</h3>
+            <ul class="archive_index">
+                {% for post in monthly.list %}
+                    <li><span class="archive_index_date">{{ post.created_on.date | date:"M j, Y" }}</span> - <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+
+
+
+
+    {% else %}
+        <p>No posts found.</p>
+
+    {% endif %}
+{% endblock page_content %}
+
+
+{% block page_navigation %}
+    <div class="pagination">
+        <span class="step-links">
+            <span class="current">~</span>
+        </span>
+    </div>
+{% endblock page_navigation %}
+
