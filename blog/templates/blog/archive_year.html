@@ -1,4 +1,4 @@
-{% extends "blog/index.html" %}
+{% extends "blog/base.html" %}
 
 {% block site_title %}
     <title>My Personal Blog | {{ year }}</title>
@@ -22,9 +22,6 @@
                 {% endfor %}
             </ul>
         {% endfor %}
-
-
-
 
     {% else %}
         <p>No posts found.</p>

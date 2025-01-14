@@ -122,7 +122,6 @@ class ArchiveYearView(TemplateView):
             ).order_by("created_on") \
             .annotate(month=TruncMonth("created_on"))
 
-
         context = {
             "year": year,
             "page_obj": search_results,
