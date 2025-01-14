@@ -12,32 +12,44 @@ Created a `.env` file, added it to `.gitignore`, and used [Python Decouple](http
 
 The foundation of this blog project is based on [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project), which I'll be using as an inspiration for my personal blog project. I did not implement the comments section.
 
-In addition:
+### Additional Changes
 
 * Set the `TIME_ZONE` in `settings.py`.
 * Implemented static files for css and javascript.
+* Enabled image upload to the media folder.
 * Registered models to the admin panel using the decorator instead of the object.
+
+### Admin Panel
+
 * Centered the admin panel.
-* Centered the change form action buttons in the admin panel.
+* Centered the change form action buttons.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
 * Categories and posts list are paginated.
-* Categories list in the admin panel is alphabetized and shows the number of posts in that category, and both columns are sortable.
+
+#### CategoryAdmin
+
+* Categories list is alphabetized and shows the number of posts in that category, and both columns are sortable.
 * The change view of a category has the list of posts in that category, and each post is a link to that post's edit page.
-* Display each post's dates created and modified in the admin panel (which made those sections sortable), and display the list of posts by creation date in descending order.
-* In the admin panel and in the post's edit page, there's a link to that post's public detail page.
-* Added a search for the post's title and filters on dates in the admin panel.
-* Moved the change form actions for posts to the bottom in the admin panel.
-* Made the created_on date/time editable fields, with the current date/time as the default, and made the datetime widget into a single line.
+
+#### PostAdmin
+
+* Display each post's dates created and modified in the admin panel (which made those sections sortable), and defaults to listing posts by creation date in descending order.
+* Added a search for the post's title and filters on dates.
+* Moved the change form actions to the bottom.
+* In the post admin and in a post's edit page, there's a link to that post's public detail page.
 * In the add/edit a post admin page, resized the title widget and separated the categories list.
+* Made the created_on date/time editable fields, with the current date/time as the default, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post, and made the preview collapsible.
-* Enabled image upload to the media folder.
+
+### Other Features
+
 * Pagination on the index page and category page.
 * Next/Prev links on each entry's page.
 * Paginated search results.
 * Paginted daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
 * Monthly index of posts (date and post titles only) at `/archive/YYYY/MM/`.
 
-Things that I will eventually experiment with:
+### Things that I will eventually experiment with
 
 * Yearly index of posts (date and post titles only), with month headings, at `/archive/YYYY/`.
 * Search posts on dates.
