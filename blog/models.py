@@ -21,12 +21,10 @@ class Post(models.Model):
     body = MarkdownxField()
     categories = models.ManyToManyField("Category", related_name="posts")
 
-
     # Create a property that returns the markdown instead
     @property
     def formatted_markdown(self):
         return markdownify(self.body)
-
 
     def __str__(self):
         return self.title

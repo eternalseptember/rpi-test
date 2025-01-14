@@ -34,10 +34,12 @@ In addition:
 * Pagination on the index page and category page.
 * Next/Prev links on each entry's page.
 * Paginated search results.
+* Paginted daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
 
 Things that I will eventually experiment with:
 
-* archives or indexes of posts by `/MMMM/YY/DD`
+* Monthly index of posts (date and post titles only) at `/archive/YYYY/MM/`.
+* Yearly index of posts (date and post titles only), with month headings, at `/archive/YYYY/`.
 
 ## Things I've Ruled Out
 

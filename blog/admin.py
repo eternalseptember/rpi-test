@@ -32,6 +32,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
 
     # Generates a list of links to posts under a category.
+    # 'posts' in posts.all() is the related_name of the model Post.categories.
     @admin.display(description='posts')
     def get_posts(self, obj):
         return self.links_to_posts(obj.posts.all().order_by("-created_on"))
