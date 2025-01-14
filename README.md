@@ -45,6 +45,7 @@ The foundation of this blog project is based on [this tutorial](https://realpyth
 
 * Pagination on the index page and category page.
 * Next/Prev links on each entry's page.
+* The title of each entry's page is a link to its admin change page.
 * Paginated search results.
 * Archives page with links to the following archives... That are mostly here for testing convenience:
     * Paginated daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.

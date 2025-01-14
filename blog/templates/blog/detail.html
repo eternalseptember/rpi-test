@@ -5,14 +5,14 @@
 {% endblock site_title %}
 
 {% block page_title %}
-    <h2>{{ post.title }}</h2>
+    <h2><a href="{% url "admin:blog_post_change" post.pk %}">{{ post.title }}</a></h2>
 {% endblock page_title %}
 
 {% block page_content %}
     <small>
         {{ post.created_on.date | date:"M j, Y" }} | Categories:
         {% for category in post.categories.all %}
-            <a href="{% url 'blog_category' category.name %}">{{ category.name | safe }}</a>{% if not forloop.last %}, {% endif %}
+            <a href="{% url "blog_category" category.name %}">{{ category.name | safe }}</a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
     </small>
     <p>{{ post.formatted_markdown | safe }}</p>
