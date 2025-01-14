@@ -24,7 +24,7 @@ The foundation of this blog project is based on [this tutorial](https://realpyth
 * Centered the admin panel.
 * Centered the change form action buttons.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
-* Categories and posts list are paginated.
+* Categories and posts lists are paginated.
 
 #### CategoryAdmin
 
@@ -46,7 +46,7 @@ The foundation of this blog project is based on [this tutorial](https://realpyth
 * Pagination on the index page and category page.
 * Next/Prev links on each entry's page.
 * Paginated search results.
-* Paginted daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
+* Paginated daily post archives at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
 * Monthly index of posts (date and post titles only) at `/archive/YYYY/MM/`.
 
 ### Things that I will eventually experiment with
