@@ -7,5 +7,7 @@ urlpatterns = [
     path("category/<category>/", views.blog_category, name="blog_category"),
     path("search/", views.blog_search, name="search"),
     path("archive/<int:year>/<int:month>/<int:day>/", views.ArchiveDayView.as_view(), name="archive_day"),
+    path("archive/<int:year>/<int:month>/", views.ArchiveMonthView.as_view(), name="archive_month"),
+    path("archive/", views.ArchiveView.as_view(), name="blog_archive"),
 ]
 

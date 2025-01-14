@@ -5,5 +5,5 @@
 {% endblock site_title %}
 
 {% block page_title %}
-    <h2>{{ date }}</h2>
+    <h2>{{ date | date:"M j, Y" }}</h2>
 {% endblock page_title %}

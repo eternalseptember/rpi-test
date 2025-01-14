@@ -22,3 +22,14 @@ h1 {
     right:0px;
 }
 
+/* Monthly archive view */
+.archive_index > li {
+    margin: 0;
+    padding: 0.1em;
+}
+
+.archive_index_date {
+    font-style: italic;
+    font-size:smaller;
+}
+

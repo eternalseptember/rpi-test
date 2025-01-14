@@ -21,7 +21,7 @@ def blog_index(request):
 
 def blog_category(request, category):
     posts = Post.objects.filter(
-        categories__name__contains=category
+        categories__name__contains = category
         ).order_by("-created_on")
 
     paginator = Paginator(posts, 5)
@@ -47,8 +47,8 @@ def blog_search(request):
     query = request.GET.get("q")
     if query:
         search_results = Post.objects.filter(
-            Q(title__icontains=query) |
-            Q(body__icontains=query)
+            Q(title__icontains = query) |
+            Q(body__icontains = query)
             ).distinct().order_by("-created_on")
 
     else:
@@ -75,7 +75,7 @@ class ArchiveDayView(TemplateView):
         day_date = date(year, month, day)
 
         search_results = Post.objects.filter(
-            created_on__date=day_date
+            created_on__date = day_date
             ).order_by("-created_on")
 
         paginator = Paginator(search_results, 5)
@@ -89,8 +89,29 @@ class ArchiveDayView(TemplateView):
         return context
 
 
+class ArchiveMonthView(TemplateView):
+    template_name = "blog/archive_month.html"
+
+    def get_context_data(self, *args, **kwargs):
+        year = self.kwargs['year']
+        month = self.kwargs['month']
+
+        search_results = Post.objects.filter(
+            created_on__year = year,
+            created_on__month = month
+            ).order_by("-created_on")
+
+        context = {
+            "date": date(year, month, 1),
+            "page_obj": search_results,
+        }
+        return context
 
 
+
+
+class ArchiveView(TemplateView):
+    template_name = "blog/archive.html"
 
 
 
