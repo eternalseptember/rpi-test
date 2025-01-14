@@ -6,6 +6,7 @@ from django.utils.timezone import now
 
 class Category(models.Model):
     name = models.CharField(max_length=30, verbose_name='category name')
+    description = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "categories"
@@ -20,6 +21,7 @@ class Post(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     body = MarkdownxField()
     categories = models.ManyToManyField("Category", related_name="posts")
+    # categories = models.ManyToManyField("Category", related_name="posts", through="Connection")
 
     # Create a property that returns the markdown instead
     @property
@@ -29,4 +31,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+"""
+class Connection(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    definition = models.TextField()
+"""
     

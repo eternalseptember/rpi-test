@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from blog.models import Post
+from blog.models import Post, Category
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views.generic.base import TemplateView
@@ -24,6 +24,8 @@ def blog_category(request, category):
     posts = Post.objects.filter(
         categories__name__contains = category
         ).order_by("-created_on")
+
+    category = Category.objects.get(name=category)
 
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
