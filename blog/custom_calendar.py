@@ -1,4 +1,6 @@
 from calendar import HTMLCalendar
+from django.urls import reverse
+
 
 class BlogHTMLCalendar(HTMLCalendar):
     def __init__(self, year):
@@ -16,8 +18,7 @@ class BlogHTMLCalendar(HTMLCalendar):
 
         cal_html = '<table class="year" border="0" cellpadding="0" cellspacing="0">'
         cal_html += '	<tr><th class="year" colspan="3">'
-        cal_html += str(self.year)  # format the calendar year link here
-        cal_html += '!'  # FOR TESTING PURPOSE
+        cal_html += self.get_yearly_archive()  # format the calendar year link here
         cal_html += '</th></tr>'
 
 
@@ -35,5 +36,10 @@ class BlogHTMLCalendar(HTMLCalendar):
         cal_html += '</table>'
 
         return cal_html
+
+
+    def get_yearly_archive(self):
+        yearly_archive_url = reverse('archive_year', args=[self.year])
+        return '<a href="%s"><h3>%s</h3></a>'%(yearly_archive_url, self.year)
 
 

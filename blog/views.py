@@ -40,11 +40,17 @@ def blog_category(request, category):
 
 
 def blog_detail(request, pk):
-    post = Post.objects.get(pk=pk)
-    context = {
-        "post": post,
-    }
-    return render(request, "blog/detail.html", context)
+    try:
+        post = Post.objects.get(pk=pk)
+
+        context = {
+            "post": post,
+        }
+        return render(request, "blog/detail.html", context)
+
+    except Post.DoesNotExist:
+        return render(None, "blog/404.html", context={})
+    
 
 
 def blog_search(request):
