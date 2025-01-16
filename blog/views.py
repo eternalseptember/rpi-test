@@ -137,7 +137,8 @@ class ArchiveView(TemplateView):
 
     def get_context_data(self, **kwargs):
         year = datetime.now().year
-        cal = BlogHTMLCalendar().formatyear(year)
+        #cal = BlogHTMLCalendar(year).formatyear()
+        cal = BlogHTMLCalendar(year).printyear()
 
 
         context = {
