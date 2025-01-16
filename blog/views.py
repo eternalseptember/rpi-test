@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.views.generic.base import TemplateView
 from datetime import date, datetime
 from django.db.models.functions import TruncMonth
-from calendar import HTMLCalendar
+from blog.custom_calendar import BlogHTMLCalendar
 
 
 def blog_index(request):
@@ -137,7 +137,7 @@ class ArchiveView(TemplateView):
 
     def get_context_data(self, **kwargs):
         year = datetime.now().year
-        cal = HTMLCalendar().formatyear(year)
+        cal = BlogHTMLCalendar(year).formatyear()
 
         context = {
             "cal": cal
