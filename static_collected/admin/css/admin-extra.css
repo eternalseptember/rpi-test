@@ -24,11 +24,26 @@
     text-align: center;
 }
 
+
+
+/* ********************************************************** */
+/* The size of a post's title box. */
+#post_form input#id_title {
+    width: 600px;
+    /* width: 45em; */
+}
+
 /* Textbox while creating/editing a post. */
-textarea {
+#post_form textarea#id_body {
     max-height: 300px !important;
     overflow-y: scroll;
 }
+
+/* Textbox size while creating/editing a category. */
+#category_form textarea#id_description {
+    width: 500px;
+}
+
 
 
 /* ********************************************************** */

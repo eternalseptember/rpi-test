@@ -61,7 +61,7 @@ class CategoryAdmin(admin.ModelAdmin):
         if obj:
             return ["get_posts", "view_category"]
         else:
-            return ["get_posts"]
+            return []
 
 
 
@@ -84,7 +84,6 @@ class PostAdmin(MarkdownxModelAdmin):
     # Resizes the title's text box.
     def get_form(self, request, obj=None, **kwargs):
         form = super(PostAdmin, self).get_form(request, obj, **kwargs)
-        form.base_fields["title"].widget.attrs["style"] = "width: 45em;"
         return form
 
     # Link to the published post.
