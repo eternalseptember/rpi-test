@@ -17,7 +17,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Set the `TIME_ZONE` in `settings.py`.
 * Implemented static files for css and javascript.
 * Enabled image upload to the media folder.
-* Added a description field to categories and updated the category template accordingly.
+* Added a description field to categories and updated the category form accordingly.
 * Registered models to the admin panel using the decorator instead of the object.
 
 ### Admin Panel
@@ -30,8 +30,9 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 #### CategoryAdmin
 
 * Categories list is alphabetized and shows the number of posts in that category, and both columns are sortable.
-* The change view of a category has the list of posts in that category, and each post is a link to that post's edit page.
+* The edit view of a category has the list of posts in that category, and each post is a link to that post's edit page.
 * In the category admin and in a category's edit page, there's a link to that category's public detail page.
+* In a category's public detail page, there is a link to the category's admin edit page.
 
 #### PostAdmin
 
@@ -39,15 +40,17 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Added a search for the post's title and filters on dates.
 * Moved the change form actions to the bottom.
 * In the post admin and in a post's edit page, there's a link to that post's public detail page.
+* In a post's public detail page, there is a link to the post's admin edit page.
 * In the add/edit a post admin page, resized the title widget and separated the categories list.
 * Made the created_on date/time editable fields, with the current date/time as the default, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post, and made the preview collapsible.
 
 ### Other Features
 
-* Pagination on the index page and category page.
+* Pagination on the index and category pages.
 * Next/Prev links on each entry's page.
-* The title of each entry's page is a link to its admin change page.
+* The title of each entry's page is a link to its admin edit page.
+* The title of each category's page is a link to its admin edit page.
 * Paginated search results.
 * Archive page that prints the current year's calendar, where:
     * The year links to its yearly index of posts, which is an ascending order list of dates and post titles with month headings (which are links to their monthly index), at `/archive/YYYY/`. For now, other years can be manually navigated by address bar inupt.
