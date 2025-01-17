@@ -56,6 +56,7 @@ The foundation of this blog project is started from [this tutorial](https://real
     * Archive page (mostly there for ease of verification) that prints a yearly calendar, where
         * The year links to the yearly index of posts.
         * The month headings link to the monthly index of posts, if available.
+        * The days link to the daily index of posts, if available.
 
 ### Things that I will eventually experiment with
 

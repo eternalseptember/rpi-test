@@ -54,4 +54,11 @@ th.year {
     font-size: 1.3rem;
     border: 1px solid black;
 }
+th.month {
+    font-size: larger;
+}
+.daily_link {
+    font-weight: bold !important;
+    background-color: #EBF5Fb !important;
+}
 
