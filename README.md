@@ -54,7 +54,7 @@ The foundation of this blog project is started from [this tutorial](https://real
     * Monthly index of posts (date and post titles only) at `/archive/YYYY/MM/`.
     * Yearly index of posts (date and post titles only), with month headings, at `/archive/YYYY/`.
         * Haven't actually created data across multiple months yet.
-    * Archive page (mostly there for ease of verification) that prints a yearly calendar, where
+    * Archive page that prints a yearly calendar, where:
         * The year links to the yearly index of posts.
         * The month headings link to the monthly index of posts, if available.
         * The days link to the daily index of posts, if available.
