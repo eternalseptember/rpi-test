@@ -10,7 +10,7 @@ Created a `.env` file, added it to `.gitignore`, and used [Python Decouple](http
 
 ## Blog Tutorial
 
-The foundation of this blog project is started from [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project), which I'll be using as an inspiration for my personal blog project. I did not implement the comments section.
+The foundation of this blog project began from [this tutorial](https://realpython.com/build-a-blog-from-scratch-django/#start-your-django-project), which I'll be using as an inspiration for my personal blog project. I did not implement the comments section.
 
 ### Additional Changes
 
