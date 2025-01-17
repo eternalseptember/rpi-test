@@ -1,11 +1,34 @@
 from django.urls import reverse
+from django.db.models import Count
+from django.db.models.functions import TruncMonth, ExtractMonth
 import calendar
 calendar.setfirstweekday(calendar.SUNDAY)  # would like this to be set when init
 
 
 class BlogHTMLCalendar(calendar.Calendar):
-    def __init__(self, year):
+    def __init__(self, year, posts_list):
         self.year = year
+        self.posts_list = posts_list
+        self.monthly_tally, self.month_list = self.get_monthly_tally()
+
+
+
+    def get_monthly_tally(self):
+        monthly_tally = self.posts_list \
+            .order_by("created_on") \
+            .values(month=ExtractMonth("created_on")) \
+            .order_by("month") \
+            .distinct()
+
+        month_list = [query_pair["month"] for query_pair in monthly_tally]
+
+        return monthly_tally, month_list
+
+
+    def print_posts_list(self):
+        print(self.monthly_tally)
+        print(self.month_list)
+
 
 
     def printyear(self):
@@ -32,6 +55,8 @@ class BlogHTMLCalendar(calendar.Calendar):
             cal_html += '</tr>'
 
         cal_html += '</table>'
+
+        #self.print_posts_list()
 
         return cal_html
 
@@ -88,11 +113,18 @@ class BlogHTMLCalendar(calendar.Calendar):
 
 
         month_html += '</table>'
+
         return month_html
 
     def get_monthly_archive(self, month_number):
-        monthly_archive_url = reverse('archive_month', args=[self.year, month_number])
-        return '<a href="%s">%s</a>'%(monthly_archive_url, calendar.month_name[month_number])
+        if month_number in self.month_list:
+            monthly_archive_url = reverse('archive_month', args=[self.year, month_number])
+            return '<a href="%s">%s</a>'%(monthly_archive_url, calendar.month_name[month_number])
+        else:
+            return str(calendar.month_name[month_number])
+
+
+
 
 
 

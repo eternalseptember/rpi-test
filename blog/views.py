@@ -143,8 +143,12 @@ class ArchiveView(TemplateView):
 
     def get_context_data(self, **kwargs):
         year = datetime.now().year
-        cal = BlogHTMLCalendar(year).printyear()
 
+        posts_list = Post.objects.filter(
+            created_on__year = year
+            ).order_by("created_on")
+
+        cal = BlogHTMLCalendar(year, posts_list).printyear()
 
         context = {
             "cal": cal
