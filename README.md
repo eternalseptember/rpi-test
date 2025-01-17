@@ -19,6 +19,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Enabled image upload to the media folder.
 * Added a description field to categories and updated the category form accordingly.
 * Registered models to the admin panel using the decorator instead of the object.
+* Made the views output some routine HTML (like site and page titles) in order to reduce the number of template html files to manage.
 
 ### Admin Panel
 

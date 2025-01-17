@@ -1,9 +1,9 @@
-from django.contrib import admin
 from blog.models import Category, Post
-from markdownx.admin import MarkdownxModelAdmin
+from django.contrib import admin
+from django.db.models import Count
 from django.urls import reverse
 from django.utils.html import format_html
-from django.db.models import Count
+from markdownx.admin import MarkdownxModelAdmin
 
 
 # These classes are for customizing the appearance of models in the admin panel.
@@ -42,8 +42,10 @@ class CategoryAdmin(admin.ModelAdmin):
         posts_list = '<ol class="category_posts_list">'
 
         for post in objects_list:
-            link = reverse("admin:%s_%s_change"%(post._meta.app_label, post._meta.model_name), args=[post.id])
-            posts_list += '<li><a href="%s">%s</a></li>'%(link, post.title)
+            link = reverse("admin:{}_{}_change"
+                  .format(post._meta.app_label, post._meta.model_name), 
+                  args=[post.id])
+            posts_list += '<li><a href="{}">{}</a></li>'.format(link, post.title)
         
         posts_list += '</ol>'
         return format_html(posts_list)
@@ -52,7 +54,7 @@ class CategoryAdmin(admin.ModelAdmin):
     # Link to the category from the admin page.
     def view_category(self, obj):
         link_url = reverse("blog_category", kwargs={"category": obj.name})
-        link = '<a href="%s" target="_blank">view</a>'%(link_url)
+        link = '<a href="{}" target="_blank">view</a>'.format(link_url)
         return format_html(link)
 
     # Resolves the error message when creating a new category,
@@ -89,7 +91,7 @@ class PostAdmin(MarkdownxModelAdmin):
     # Link to the published post.
     def view_post(self, obj):
         link_url = reverse("blog_detail", kwargs={"pk": obj.id})
-        link = '<a href="%s" target="_blank">view</a>'%(link_url)
+        link = '<a href="{}" target="_blank">view</a>'.format(link_url)
         return format_html(link)
 
     # Resolves the error message when creating a new post,

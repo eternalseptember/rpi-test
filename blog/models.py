@@ -1,7 +1,7 @@
 from django.db import models
+from django.utils.timezone import now
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
-from django.utils.timezone import now
 
 
 class Category(models.Model):

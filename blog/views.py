@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from blog.calendar import BlogHTMLCalendar
 from blog.models import Post, Category
+from datetime import date, datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.views.generic.base import TemplateView
-from datetime import date, datetime
 from django.db.models.functions import TruncMonth
-from blog.calendar import BlogHTMLCalendar
+from django.shortcuts import render
+from django.urls import reverse
+from django.views.generic.base import TemplateView
 
 
 def blog_index(request):
@@ -15,7 +16,11 @@ def blog_index(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
+    # Output to Template
+    site_title = '<title>My Personal Blog</title>'
+
     context = {
+        "site_title": site_title,
         "page_obj": page_obj
     }
     return render(request, "blog/index.html", context)
@@ -30,18 +35,37 @@ def blog_category(request, category):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
+    # Output to Template
+    category = Category.objects.get(name=category)
+    site_title = '<title>My Personal Blog | Category: {}</title>'.format(category)
+    category_edit_url = reverse("admin:{}_{}_change"
+                  .format(category._meta.app_label, category._meta.model_name), 
+                  args=[category.id])
+    page_title = '<h2>category: <a href="{}">{}</a></h2>'.format(category_edit_url, category)
+    page_title += '<span class="category_description">{}</span>'.format(category.description)
+
     context = {
-        "category": Category.objects.get(name=category),
+        "site_title": site_title,
+        "page_title": page_title,
         "page_obj": page_obj,
     }
-    return render(request, "blog/category.html", context)
+    return render(request, "blog/index.html", context)
 
 
 def blog_detail(request, pk):
     try:
         post = Post.objects.get(pk=pk)
 
+        # Output to Template
+        site_title = '<title>My Personal Blog | {}</title>'.format(post.title)
+        post_edit_url = reverse("admin:{}_{}_change"
+                  .format(post._meta.app_label, post._meta.model_name), 
+                  args=[post.pk])
+        page_title = '<h2><a href="{}">{}</a></h2>'.format(post_edit_url, post.title)
+
         context = {
+            "site_title": site_title,
+            "page_title": page_title,
             "post": post,
         }
         return render(request, "blog/detail.html", context)
@@ -66,15 +90,20 @@ def blog_search(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
+    # Output to Template
+    site_title = '<title>My Personal Blog | Search: {}</title>'.format(query)
+    page_title = '<h2>search: {}</h2>'.format(query)
+
     context = {
-        "query": query,
+        "site_title": site_title,
+        "page_title": page_title,
         "page_obj": page_obj,
     }
     return render(request, "blog/search.html", context)
 
 
 class ArchiveDayView(TemplateView):
-    template_name = "blog/archive_day.html"
+    template_name = "blog/index.html"
 
     def get_context_data(self, *args, **kwargs):
         year = self.kwargs["year"]
@@ -92,8 +121,13 @@ class ArchiveDayView(TemplateView):
         page_number = self.request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
+        # Output to Template
+        site_title = '<title>My Personal Blog | {}</title>'.format(day_date.strftime("%b %-d, %Y"))
+        page_title = '<h2>{}</h2>'.format(day_date.strftime("%b %-d, %Y"))
+
         context = {
-            "date": day_date,
+            "site_title": site_title,
+            "page_title": page_title,
             "page_obj": page_obj,
         }
         return context
@@ -111,8 +145,14 @@ class ArchiveMonthView(TemplateView):
             created_on__month = month
             ).order_by("-created_on")
 
+        # Output to Template
+        month_date = date(year, month, 1)
+        site_title = '<title>My Personal Blog | {}</title>'.format(month_date.strftime("%B %Y"))
+        page_title = '<h2>{}</h2>'.format(month_date.strftime("%B %Y"))
+
         context = {
-            "date": date(year, month, 1),
+            "site_title": site_title,
+            "page_title": page_title,
             "page_obj": search_results,
         }
         return context
@@ -129,8 +169,13 @@ class ArchiveYearView(TemplateView):
             ).order_by("created_on") \
             .annotate(month=TruncMonth("created_on"))
 
+        # Output to Template
+        site_title = '<title>My Personal Blog | {}</title>'.format(year)
+        page_title = '<h2>{}</h2>'.format(year)
+
         context = {
-            "year": year,
+            "site_title": site_title,
+            "page_title": page_title,
             "page_obj": search_results,
         }
         return context
@@ -148,7 +193,13 @@ class ArchiveView(TemplateView):
 
         cal = BlogHTMLCalendar(year, posts_list).printyear()
 
+        # Output to Template
+        site_title = '<title>My Personal Blog | Archives</title>'
+        page_title = '<h2>Archives</h2>'
+
         context = {
+            "site_title": site_title,
+            "page_title": page_title,
             "cal": cal
         }
         return context

@@ -1,13 +1,5 @@
 {% extends "blog/base.html" %}
 
-{% block site_title %}
-    <title>My Personal Blog | Archives</title>
-{% endblock site_title %}
-
-{% block page_title %}
-    <h2>Archives</h2>
-{% endblock page_title %}
-
 {% block page_content %}
     {{ cal | safe }}
 {% endblock page_content %}

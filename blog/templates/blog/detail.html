@@ -1,13 +1,5 @@
 {% extends "blog/base.html" %}
 
-{% block site_title %}
-    <title>My Personal Blog | {{ post.title }}</title>
-{% endblock site_title %}
-
-{% block page_title %}
-    <h2><a href="{% url "admin:blog_post_change" post.pk %}">{{ post.title }}</a></h2>
-{% endblock page_title %}
-
 {% block page_content %}
     <small>
         {{ post.created_on.date | date:"M j, Y" }} | Categories:

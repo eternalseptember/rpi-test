@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {% block site_title %}{% endblock site_title %}
+    {{ site_title | safe }}
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'blog/sakura.css' %}">
@@ -28,7 +28,7 @@
     </div>
 
     <hr>
-    {% block page_title %}{% endblock page_title %}
+    {{ page_title | safe }}
     {% block page_content %}{% endblock page_content %}
     <hr>
     {% block page_navigation %}

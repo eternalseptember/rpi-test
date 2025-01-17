@@ -1,8 +1,7 @@
-from django.urls import reverse
-from django.db.models import Count
-from django.db.models.functions import ExtractMonth, ExtractDay
 import calendar
-calendar.setfirstweekday(calendar.SUNDAY)  # would like this to be set when init
+calendar.setfirstweekday(calendar.SUNDAY)
+from django.db.models.functions import ExtractMonth, ExtractDay
+from django.urls import reverse
 
 
 class BlogHTMLCalendar(calendar.Calendar):
@@ -63,7 +62,7 @@ class BlogHTMLCalendar(calendar.Calendar):
         Format and prints the year with a link to that year's archives.
         """
         yearly_archive_url = reverse("archive_year", args=[self.year])
-        return '<a href="%s"><h3>%s</h3></a>'%(yearly_archive_url, self.year)
+        return '<a href="{}"><h3>{}</h3></a>'.format(yearly_archive_url, self.year)
     
 
     def print_month(self, month):
@@ -121,7 +120,7 @@ class BlogHTMLCalendar(calendar.Calendar):
         """
         if month in self.month_list:
             monthly_archive_url = reverse("archive_month", args=[self.year, month])
-            return '<a href="%s">%s</a>'%(monthly_archive_url, calendar.month_name[month]), True
+            return '<a href="{}">{}</a>'.format(monthly_archive_url, calendar.month_name[month]), True
         else:
             return str(calendar.month_name[month]), False
 
@@ -151,7 +150,8 @@ class BlogHTMLCalendar(calendar.Calendar):
         """
         if posts_this_month and day in daily_posts:
             daily_archive_url = reverse("archive_day", args=[self.year, month, day])
-            return '<td class="day_of_the_month daily_link"><a href="%s">%s</a>'%(daily_archive_url, day)
+            return '<td class="day_of_the_month daily_link"><a href="{}">{}</a>'\
+                .format(daily_archive_url, day)
         else:
             return '<td class="day_of_the_month">' + str(day)
 
