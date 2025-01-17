@@ -42,7 +42,7 @@ class CategoryAdmin(admin.ModelAdmin):
         posts_list = '<ol class="category_posts_list">'
 
         for post in objects_list:
-            link = reverse('admin:%s_%s_change'%(post._meta.app_label, post._meta.model_name), args=[post.id])
+            link = reverse("admin:%s_%s_change"%(post._meta.app_label, post._meta.model_name), args=[post.id])
             posts_list += '<li><a href="%s">%s</a></li>'%(link, post.title)
         
         posts_list += '</ol>'

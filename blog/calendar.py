@@ -62,7 +62,7 @@ class BlogHTMLCalendar(calendar.Calendar):
         """
         Format and prints the year with a link to that year's archives.
         """
-        yearly_archive_url = reverse('archive_year', args=[self.year])
+        yearly_archive_url = reverse("archive_year", args=[self.year])
         return '<a href="%s"><h3>%s</h3></a>'%(yearly_archive_url, self.year)
     
 
@@ -120,7 +120,7 @@ class BlogHTMLCalendar(calendar.Calendar):
         Month name is a link to that month's archives, if there are posts that month.
         """
         if month in self.month_list:
-            monthly_archive_url = reverse('archive_month', args=[self.year, month])
+            monthly_archive_url = reverse("archive_month", args=[self.year, month])
             return '<a href="%s">%s</a>'%(monthly_archive_url, calendar.month_name[month]), True
         else:
             return str(calendar.month_name[month]), False
@@ -150,7 +150,7 @@ class BlogHTMLCalendar(calendar.Calendar):
         depending on whether there's a post that day.
         """
         if posts_this_month and day in daily_posts:
-            daily_archive_url = reverse('archive_day', args=[self.year, month, day])
+            daily_archive_url = reverse("archive_day", args=[self.year, month, day])
             return '<td class="day_of_the_month daily_link"><a href="%s">%s</a>'%(daily_archive_url, day)
         else:
             return '<td class="day_of_the_month">' + str(day)

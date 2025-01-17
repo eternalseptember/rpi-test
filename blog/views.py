@@ -26,14 +26,12 @@ def blog_category(request, category):
         categories__name__contains = category
         ).order_by("-created_on")
 
-    category = Category.objects.get(name=category)
-
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "category": category,
+        "category": Category.objects.get(name=category),
         "page_obj": page_obj,
     }
     return render(request, "blog/category.html", context)
