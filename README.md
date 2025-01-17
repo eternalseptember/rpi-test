@@ -31,6 +31,7 @@ The foundation of this blog project is started from [this tutorial](https://real
 
 * Categories list is alphabetized and shows the number of posts in that category, and both columns are sortable.
 * The change view of a category has the list of posts in that category, and each post is a link to that post's edit page.
+* In the category admin and in a category's edit page, there's a link to that category's public detail page.
 
 #### PostAdmin
 
