@@ -106,6 +106,25 @@ def blog_search(request):
 
 
 
+class AdvancedSearch(TemplateView):
+    template_name = "blog/advanced_search.html"
+
+    def get_context_data(self, *args, **kwargs):
+
+
+        # Output to Template
+        site_title = '<title>My Personal Blog | Advanced Search</title>'
+        page_title = '<h2>Advanced Search</h2>'
+
+        context = {
+            "site_title": site_title,
+            "page_title": page_title,
+        }
+        return context
+
+
+
+
 class ArchiveDayView(TemplateView):
     template_name = "blog/archive_day.html"
 
