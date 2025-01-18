@@ -101,7 +101,7 @@ def blog_search(request):
         "page_title": page_title,
         "page_obj": page_obj,
     }
-    return render(request, "blog/search.html", context)
+    return render(request, "blog/search_results.html", context)
 
 
 

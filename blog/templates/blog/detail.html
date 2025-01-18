@@ -15,13 +15,13 @@
 <div class="pagination">
     <span class="step-links">
         {% if post.get_previous_by_created_on %}
-            <a href="../{{ post.get_previous_by_created_on.pk }}">prev</a>
+            <a href="{% url "blog_detail" post.get_previous_by_created_on.pk %}">prev</a>
         {% endif %}
 
         <span class="current">~</span>
 
         {% if post.get_next_by_created_on.pk %}
-            <a href="../{{ post.get_next_by_created_on.pk }}">next</a>
+            <a href="{% url "blog_detail" post.get_next_by_created_on.pk %}">next</a>
         {% endif %}
     </span>
 </div>
