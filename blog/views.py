@@ -74,7 +74,6 @@ def blog_detail(request, pk):
         return render(None, "blog/404.html", context={})
     
 
-
 def blog_search(request):
     query = request.GET.get("q")
     if query:
@@ -164,19 +163,20 @@ class ArchiveYearView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         year = self.kwargs["year"]
 
-        search_results = Post.objects.filter(
+        posts_list = Post.objects.filter(
             created_on__year = year
-            ).order_by("created_on") \
-            .annotate(month=TruncMonth("created_on"))
+            ).order_by("created_on")
+
+        search_results = posts_list.annotate(month=TruncMonth("created_on"))
+        cal = BlogHTMLCalendar(year, posts_list).printyear()
 
         # Output to Template
         site_title = '<title>My Personal Blog | {}</title>'.format(year)
-        page_title = '<h2>{}</h2>'.format(year)
 
         context = {
             "site_title": site_title,
-            "page_title": page_title,
             "page_obj": search_results,
+            "cal": cal
         }
         return context
 
@@ -185,13 +185,7 @@ class ArchiveView(TemplateView):
     template_name = "blog/archive.html"
 
     def get_context_data(self, **kwargs):
-        year = datetime.now().year
-
-        posts_list = Post.objects.filter(
-            created_on__year = year
-            ).order_by("created_on")
-
-        cal = BlogHTMLCalendar(year, posts_list).printyear()
+        years = Post.objects.dates("created_on", "year", "DESC")
 
         # Output to Template
         site_title = '<title>My Personal Blog | Archives</title>'
@@ -200,7 +194,7 @@ class ArchiveView(TemplateView):
         context = {
             "site_title": site_title,
             "page_title": page_title,
-            "cal": cal
+            "years": years
         }
         return context
 

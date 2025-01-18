@@ -53,10 +53,10 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * The title of each entry's page is a link to its admin edit page.
 * The title of each category's page is a link to its admin edit page.
 * Paginated search results.
-* Archive page that prints the current year's calendar, where:
-    * The year links to its yearly index of posts, which is an ascending order list of dates and post titles with month headings (which are links to their monthly index), at `/archive/YYYY/`. For now, other years can be manually navigated by address bar inupt.
-    * The calendar month headings link to their monthly index of posts (if available), which is a list dates and post titles at `/archive/YYYY/MM/`.
-    * The calendar days link to their daily index of posts (if available), which is a paginated post archive at `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D`.
+* Archives:
+    * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available).
+    * `/archive/YYYY/MM/` is the index listing all of the posts made in that month.
+    * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day.
 
 ### Things that I will eventually experiment with
 

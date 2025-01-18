@@ -1,6 +1,10 @@
 {% extends "blog/base.html" %}
 
 {% block page_content %}
-    {{ cal | safe }}
+    <ul>
+    {% for year in years %}
+        <li><a href="{% url "archive_year" year|date:"Y" %}">{{ year|date:"Y" }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock page_content %}
 

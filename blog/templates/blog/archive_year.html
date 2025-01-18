@@ -2,6 +2,10 @@
 
 {% block page_content %}
     {% if page_obj %}
+        <!-- Prints the calendar first. -->
+        {{ cal | safe }}
+
+        <!-- Then prints the post list. -->
         {% regroup page_obj by month as post_months %}
         <!-- Regroup produces a list of group objects. 
          Each group object has two attributes: grouper and list. -->
@@ -17,9 +21,21 @@
             </ul>
         {% endfor %}
 
+
     {% else %}
         <p>No posts found.</p>
 
     {% endif %}
 {% endblock page_content %}
+
+
+{% block page_navigation %}
+<div class="pagination">
+    <span class="step-links">
+
+
+
+    </span>
+</div>
+{% endblock page_navigation %}
 

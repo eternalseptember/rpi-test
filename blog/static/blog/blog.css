@@ -46,6 +46,7 @@ table.month, table.year {
 }
 th.year {
     text-align: center;
+    font-size: larger;
 }
 .month, .day_of_the_week, .day_of_the_month {
     text-align: center;

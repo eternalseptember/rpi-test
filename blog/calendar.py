@@ -92,7 +92,10 @@ class BlogHTMLCalendar(calendar.Calendar):
 
         # Weeks of the month
         weeks_of_the_month = calendar.monthcalendar(self.year, month)
-        daily_posts = self.get_daily_posts_per_month(month)
+
+        # List of days that have posts
+        if posts_this_month:
+            daily_posts = self.get_daily_posts_per_month(month)
 
         for week in weeks_of_the_month:
             month_html += '<tr>'
@@ -102,8 +105,11 @@ class BlogHTMLCalendar(calendar.Calendar):
                 if day == 0:
                     month_html += '<td class="day_of_the_month">&nbsp;'
                 else:
-                    # If posts_this_month, then link to the day's archives.
-                    month_html += self.get_daily_archive_link(posts_this_month, daily_posts, month, day)
+                    # Link to the day's archives if there are posts this month.
+                    if posts_this_month:
+                        month_html += self.get_daily_archive_link(daily_posts, month, day)
+                    else:
+                        month_html += '<td class="day_of_the_month">' + str(day)
 
                 month_html += '</td>'
 
@@ -141,14 +147,13 @@ class BlogHTMLCalendar(calendar.Calendar):
         return daily_list
 
 
-    def get_daily_archive_link(self, posts_this_month, daily_posts, month, day):
+    def get_daily_archive_link(self, daily_posts, month, day):
         """
-        If there's a post on this day (posts_this_month is a boolean),
-        then create a link to that day's archives.
+        If there's a post on this day, then create a link to that day's archives.
         Beginning <td> is set individually per cell,
         depending on whether there's a post that day.
         """
-        if posts_this_month and day in daily_posts:
+        if day in daily_posts:
             daily_archive_url = reverse("archive_day", args=[self.year, month, day])
             return '<td class="day_of_the_month daily_link"><a href="{}">{}</a>'\
                 .format(daily_archive_url, day)

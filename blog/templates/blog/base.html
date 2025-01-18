@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {{ site_title | safe }}
+    <!-- Title block still here because the 404 page overwrites it. -->
+    {% block site_title %}{{ site_title | safe }}{% endblock site_title %}
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'blog/sakura.css' %}">
@@ -28,7 +29,8 @@
     </div>
 
     <hr>
-    {{ page_title | safe }}
+    <!-- Title block still here because the 404 page overwrites it. -->
+    {% block page_title %}{{ page_title | safe }}{% endblock page_title %}
     {% block page_content %}{% endblock page_content %}
     <hr>
     {% block page_navigation %}
