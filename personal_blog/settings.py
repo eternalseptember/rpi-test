@@ -50,6 +50,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'personal_blog.urls'
+APPEND_SLASH = True
 
 TEMPLATES = [
     {

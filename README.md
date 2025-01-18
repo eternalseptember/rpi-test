@@ -15,6 +15,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 ### Additional Changes
 
 * Set the `TIME_ZONE` in `settings.py`.
+* Added `APPEND_SLASH = True` in `settings.py`.
 * Implemented static files for css and javascript.
 * Enabled image upload to the media folder.
 * Added a description field to categories and updated the category form accordingly.
