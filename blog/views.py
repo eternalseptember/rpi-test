@@ -1,9 +1,9 @@
 from blog.calendar import BlogHTMLCalendar
 from blog.models import Post, Category
-from datetime import date, datetime
+from datetime import date
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.db.models.functions import TruncMonth, ExtractYear
+from django.db.models.functions import TruncMonth
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic.base import TemplateView

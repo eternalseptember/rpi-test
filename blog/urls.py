@@ -9,6 +9,6 @@ urlpatterns = [
     path("archive/<int:year>/<int:month>/<int:day>/", views.ArchiveDayView.as_view(), name="archive_day"),
     path("archive/<int:year>/<int:month>/", views.ArchiveMonthView.as_view(), name="archive_month"),
     path("archive/<int:year>/", views.ArchiveYearView.as_view(), name="archive_year"),
-    path("archive/", views.ArchiveView.as_view(), name="blog_archive"),
+    path("archives/", views.ArchiveView.as_view(), name="blog_archives"),
 ]
 
