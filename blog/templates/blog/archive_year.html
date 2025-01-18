@@ -32,9 +32,15 @@
 {% block page_navigation %}
 <div class="pagination">
     <span class="step-links">
+        {% if prev_year %}
+            <a href="{% url "archive_year" prev_year %}">prev ({{ prev_year }})</a>
+        {% endif %}
 
+        <span class="current">~</span>
 
-
+        {% if next_year %}
+            <a href="{% url "archive_year" next_year %}">next ({{ next_year }})</a>
+        {% endif %}
     </span>
 </div>
 {% endblock page_navigation %}

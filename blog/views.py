@@ -3,7 +3,7 @@ from blog.models import Post, Category
 from datetime import date, datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.db.models.functions import TruncMonth
+from django.db.models.functions import TruncMonth, ExtractYear
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic.base import TemplateView
@@ -24,6 +24,7 @@ def blog_index(request):
         "page_obj": page_obj
     }
     return render(request, "blog/index.html", context)
+
 
 
 def blog_category(request, category):
@@ -52,6 +53,7 @@ def blog_category(request, category):
     return render(request, "blog/index.html", context)
 
 
+
 def blog_detail(request, pk):
     try:
         post = Post.objects.get(pk=pk)
@@ -72,7 +74,8 @@ def blog_detail(request, pk):
 
     except Post.DoesNotExist:
         return render(None, "blog/404.html", context={})
-    
+
+
 
 def blog_search(request):
     query = request.GET.get("q")
@@ -99,6 +102,7 @@ def blog_search(request):
         "page_obj": page_obj,
     }
     return render(request, "blog/search.html", context)
+
 
 
 class ArchiveDayView(TemplateView):
@@ -132,6 +136,7 @@ class ArchiveDayView(TemplateView):
         return context
 
 
+
 class ArchiveMonthView(TemplateView):
     template_name = "blog/archive_month.html"
 
@@ -157,6 +162,7 @@ class ArchiveMonthView(TemplateView):
         return context
 
 
+
 class ArchiveYearView(TemplateView):
     template_name = "blog/archive_year.html"
 
@@ -172,20 +178,46 @@ class ArchiveYearView(TemplateView):
 
         # Output to Template
         site_title = '<title>My Personal Blog | {}</title>'.format(year)
+        prev_year, next_year = self.get_next_and_prev(year)
 
         context = {
             "site_title": site_title,
             "page_obj": search_results,
+            "prev_year": prev_year,
+            "next_year": next_year,
             "cal": cal
         }
         return context
+    
+    def get_next_and_prev(self, year):
+        dates = Post.objects.dates("created_on", "year", "ASC")
+        years = [date.year for date in dates]
+        this_year_index = years.index(year)
+
+        # Previous Year
+        prev_index = this_year_index - 1
+        if (0 <= prev_index) and (prev_index < len(years)):
+            prev_year = years[prev_index]
+        else:
+            prev_year = None
+
+        # Next year
+        next_index = this_year_index + 1
+        if (0 <= next_index) and (next_index < len(years)):
+            next_year = years[next_index]
+        else:
+            next_year = None
+
+        return prev_year, next_year
+
 
 
 class ArchiveView(TemplateView):
     template_name = "blog/archive.html"
 
     def get_context_data(self, **kwargs):
-        years = Post.objects.dates("created_on", "year", "DESC")
+        dates = Post.objects.dates("created_on", "year", "DESC")
+        years = [date.year for date in dates]
 
         # Output to Template
         site_title = '<title>My Personal Blog | Archives</title>'

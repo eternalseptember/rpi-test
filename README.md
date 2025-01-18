@@ -54,7 +54,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * The title of each category's page is a link to its admin edit page.
 * Paginated search results.
 * Archives:
-    * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available).
+    * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available). There is custom yearly pagination for going to the previous and next years that there are posts for.
     * `/archive/YYYY/MM/` is the index listing all of the posts made in that month.
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day.
 
