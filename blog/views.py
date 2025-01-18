@@ -107,7 +107,7 @@ def blog_search(request):
 
 
 class ArchiveDayView(TemplateView):
-    template_name = "blog/index.html"
+    template_name = "blog/archive_day.html"
 
     def get_context_data(self, *args, **kwargs):
         year = self.kwargs["year"]
@@ -119,22 +119,45 @@ class ArchiveDayView(TemplateView):
             created_on__date = day_date
             ).order_by("-created_on")
 
-        # This is paginated because of test data entry.
-        # This will not be paginated on the real project.
-        paginator = Paginator(search_results, 5)
-        page_number = self.request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-
         # Output to Template
         site_title = '<title>My Personal Blog | {}</title>'.format(day_date.strftime("%b %-d, %Y"))
         page_title = '<h2>{}</h2>'.format(day_date.strftime("%b %-d, %Y"))
+        prev_day, this_day, next_day = self.get_prev_and_next(year, month, day)
 
         context = {
             "site_title": site_title,
             "page_title": page_title,
-            "page_obj": page_obj,
+            "page_obj": search_results,
+            "prev_day": prev_day,
+            "this_day": this_day,
+            "next_day": next_day
         }
         return context
+
+    def get_prev_and_next(self, year, month, day):
+        """
+        prev_day, this_day, next_day are lists in the order of [year, month, day].
+        """
+        dates = Post.objects.dates("created_on", "day", "ASC")
+        days = [[date.year, date.month, date.day] for date in dates]
+        this_day = [year, month, day]
+        this_day_index = days.index(this_day)
+
+        # Previous day, skipping over empty days.
+        prev_index = this_day_index - 1
+        if (0 <= prev_index) and (prev_index < len(days)):
+            prev_day = days[prev_index]
+        else:
+            prev_day = None
+
+        # Next day, skipping over empty days.
+        next_index = this_day_index + 1
+        if (0 <= next_index) and (next_index < len(days)):
+            next_day = days[next_index]
+        else:
+            next_day = None
+
+        return prev_day, this_day, next_day
 
 
 
@@ -168,21 +191,21 @@ class ArchiveMonthView(TemplateView):
 
     def get_prev_and_next(self, year, month):
         """
-        prev_month and next_month are lists in the order of [year, month].
+        prev_month, this_month, next_month are lists in the order of [year, month].
         """
         dates = Post.objects.dates("created_on", "month", "ASC")
         months = [[date.year, date.month] for date in dates]
         this_month = [year, month]
         this_month_index = months.index(this_month)
 
-        # Previous month, skipping over empty months
+        # Previous month, skipping over empty months.
         prev_index = this_month_index - 1
         if (0 <= prev_index) and (prev_index < len(months)):
             prev_month = months[prev_index]
         else:
             prev_month = None
 
-        # Next month, skipping over empty months
+        # Next month, skipping over empty months.
         next_index = this_month_index + 1
         if (0 <= next_index) and (next_index < len(months)):
             next_month = months[next_index]

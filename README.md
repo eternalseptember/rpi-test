@@ -50,15 +50,15 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 ### Other Features
 
 * Search query is highlighted.
+* Paginated search results.
 * Pagination on the index and category pages.
 * Next/Prev links on each entry's page.
 * The title of each entry's page is a link to its admin edit page.
 * The title of each category's page is a link to its admin edit page.
-* Paginated search results.
 * Archives:
     * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available). There is custom yearly pagination for going to the previous and next years that there are posts for.
     * `/archive/YYYY/MM/` is the index listing all of the posts made in that month. There is custom monthly pagination for going to the previous and next months that there are posts for.
-    * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day.
+    * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day. There is custom daily pagination for going to the previous and next days that there are posts for.
 
 ### Things that I will eventually experiment with
 

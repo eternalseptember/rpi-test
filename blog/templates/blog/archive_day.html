@@ -1,12 +1,26 @@
 {% extends "blog/index.html" %}
-
-
-{% block page_content %}
-
-{% endblock page_content %}
+{% load month_name %}
 
 
 {% block page_navigation %}
+<div class="pagination">
+    <span class="step-links">
+        {% if prev_day %}
+            <a href="{% url "archive_day" prev_day.0 prev_day.1 prev_day.2 %}">
+                ({{ prev_day.1 | month_name }} {{ prev_day.2 }}, {{ prev_day.0 }})
+            </a>
+        {% endif %}
 
+        <span class="current">
+            ~({{ this_day.1 | month_name }} {{ this_day.2 }} {{ this_day.0 }})~
+        </span>
+
+        {% if next_day %}
+            <a href="{% url "archive_day" next_day.0 next_day.1 next_day.2 %}">
+                ({{ next_day.1 | month_name }} {{ next_day.2 }}, {{ next_day.0 }})
+            </a>
+        {% endif %}
+    </span>
+</div>
 {% endblock page_navigation %}
 
