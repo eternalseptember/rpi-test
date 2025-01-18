@@ -22,6 +22,12 @@ h1 {
     right:0px;
 }
 
+/* Highlighting */
+.highlight {
+    background-color: #f9e79f;
+}
+
+
 /* Category view */
 .category_description {
     font-style: italic;

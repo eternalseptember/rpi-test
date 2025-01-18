@@ -100,6 +100,7 @@ def blog_search(request):
         "site_title": site_title,
         "page_title": page_title,
         "page_obj": page_obj,
+        "query": query
     }
     return render(request, "blog/search_results.html", context)
 

@@ -48,6 +48,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Other Features
 
+* Search query is highlighted.
 * Pagination on the index and category pages.
 * Next/Prev links on each entry's page.
 * The title of each entry's page is a link to its admin edit page.
