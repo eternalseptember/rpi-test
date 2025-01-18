@@ -34,13 +34,13 @@
 <div class="pagination">
     <span class="step-links">
         {% if prev_year %}
-            <a href="{% url "archive_year" prev_year %}">prev ({{ prev_year }})</a>
+            <a href="{% url "archive_year" prev_year %}">({{ prev_year }})</a>
         {% endif %}
 
-        <span class="current">~</span>
+        <span class="current">~({{ this_year }})~</span>
 
         {% if next_year %}
-            <a href="{% url "archive_year" next_year %}">next ({{ next_year }})</a>
+            <a href="{% url "archive_year" next_year %}">({{ next_year }})</a>
         {% endif %}
     </span>
 </div>

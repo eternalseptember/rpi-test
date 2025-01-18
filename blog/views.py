@@ -154,13 +154,14 @@ class ArchiveMonthView(TemplateView):
         month_date = date(year, month, 1)
         site_title = '<title>My Personal Blog | {}</title>'.format(month_date.strftime("%B %Y"))
         page_title = '<h2>{}</h2>'.format(month_date.strftime("%B %Y"))
-        prev_month, next_month = self.get_prev_and_next(year, month)
+        prev_month, this_month, next_month = self.get_prev_and_next(year, month)
 
         context = {
             "site_title": site_title,
             "page_title": page_title,
             "page_obj": search_results,
             "prev_month": prev_month,
+            "this_month": this_month,
             "next_month": next_month
         }
         return context
@@ -171,7 +172,8 @@ class ArchiveMonthView(TemplateView):
         """
         dates = Post.objects.dates("created_on", "month", "ASC")
         months = [[date.year, date.month] for date in dates]
-        this_month_index = months.index([year, month])
+        this_month = [year, month]
+        this_month_index = months.index(this_month)
 
         # Previous month, skipping over empty months
         prev_index = this_month_index - 1
@@ -187,7 +189,7 @@ class ArchiveMonthView(TemplateView):
         else:
             next_month = None
 
-        return prev_month, next_month
+        return prev_month, this_month, next_month
 
 
 
@@ -212,6 +214,7 @@ class ArchiveYearView(TemplateView):
             "site_title": site_title,
             "page_obj": search_results,
             "prev_year": prev_year,
+            "this_year": year,
             "next_year": next_year,
             "cal": cal
         }
