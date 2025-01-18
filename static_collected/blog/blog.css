@@ -27,7 +27,6 @@ h1 {
     background-color: #f9e79f;
 }
 
-
 /* Category view */
 .category_description {
     font-style: italic;
@@ -38,7 +37,6 @@ h1 {
     margin: 0;
     padding: 0.1em;
 }
-
 .archive_index_date {
     font-style: italic;
     font-size: smaller;

@@ -34,6 +34,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * The edit view of a category has the list of posts in that category, and each post is a link to that post's edit page.
 * In the category admin and in a category's edit page, there's a link to that category's public detail page.
 * In a category's public detail page, there is a link to the category's admin edit page.
+* Created custom template tags for highlighting search results and converting integer to month names.
 
 #### PostAdmin
 
@@ -56,7 +57,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Paginated search results.
 * Archives:
     * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available). There is custom yearly pagination for going to the previous and next years that there are posts for.
-    * `/archive/YYYY/MM/` is the index listing all of the posts made in that month.
+    * `/archive/YYYY/MM/` is the index listing all of the posts made in that month. There is custom monthly pagination for going to the previous and next months that there are posts for.
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day.
 
 ### Things that I will eventually experiment with

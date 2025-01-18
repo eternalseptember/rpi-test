@@ -1,7 +1,8 @@
 {% extends "blog/base.html" %}
+{% load highlighter %}
+
 
 {% block page_content %}
-    {% load highlighter %}
     {% if page_obj %}
         {% for post in page_obj %}
             <h3><a href="{% url "blog_detail" post.pk %}">{{ post.title | highlighter:query }}</a></h3>
