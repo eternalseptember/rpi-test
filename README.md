@@ -14,8 +14,8 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Additional Changes
 
-* Set the `TIME_ZONE` in `settings.py`.
-* Added `APPEND_SLASH = True` in `settings.py`.
+* In `settings.py`, set the `TIME_ZONE`, and added `APPEND_SLASH = True`.
+* In the `TEMPLATES` -> `OPTIONS` section of `settings.py`, set `autoescape = False` and added `highlighter` and `month_name` template tags.
 * Implemented static files for css and javascript.
 * Enabled image upload to the media folder.
 * Added a description field to categories and updated the category form accordingly.
@@ -185,4 +185,18 @@ In the associated view (in  `views.py`), I checked if there is a request. Need t
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
+```
+
+### Autoescape Seemingly Being Ignored
+
+In the advanced search page, after adding highlighting to the post body, not searching the post body caused the post body to escape in the search results, even though autoescape was turned off project-wide.
+
+The solution was adding a check in the template to see if there was a search query on the body.
+
+```
+        {% if s2 %}
+            <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
+        {% else %}
+            <p>{{ post.formatted_markdown }}</p>
+        {% endif %}
 ```

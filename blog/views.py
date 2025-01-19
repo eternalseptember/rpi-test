@@ -129,12 +129,12 @@ def advanced_search(request):
     s3 = request.GET.get("created_on__date")
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
+    #s6 = request.GET.get("categories")
 
     if s1 or s2 or s3 or s4 or s5:
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
-
 
 
     paginator = Paginator(search_results, 5)

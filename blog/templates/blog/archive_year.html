@@ -4,7 +4,7 @@
 {% block page_content %}
     {% if page_obj %}
         <!-- Prints the calendar first. -->
-        {{ cal | safe }}
+        {{ cal }}
 
         <!-- Then prints the post list. -->
         {% regroup page_obj by month as post_months %}

@@ -1,4 +1,4 @@
-from blog.models import Post
+from blog.models import Post, Category
 import django_filters
 
 
@@ -10,7 +10,7 @@ class PostFilter(django_filters.FilterSet):
             "title": ['icontains'],
             "body": ['icontains'],
             "created_on": ['date', 'date__gte', 'date__lte'],
-            "categories": []
+            #"categories": ['exact']
             }
 
     def __init__(self, *args, **kwargs):
