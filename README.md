@@ -61,16 +61,14 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * `/archive/YYYY/MM/` is the index listing all of the posts made in that month. There is custom monthly pagination for going to the previous and next months that there are posts for.
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day. There is custom daily pagination for going to the previous and next days that there are posts for.
 * Advanced search page powered by [django-filter](https://django-filter.readthedocs.io/en/stable/index.html).
-
-### Currently broken
-
-* Django-filter on datetime fields is giving me an error message that says "Enter a valid date/time".
-    * I also just want to search by date.
-    * And this invalidates the code I put in to hide all posts by default.
+    * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
+    * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
+    * Empty or invalid filters *don't* show every post!
 
 ### Things that I will eventually experiment with
 
-* Advanced search by category tags. Toggles for "and" and/or "or" search.
+* Search for posts without years? Like searching for all posts made on my birthday, holidays, anniversary, etc.
+* Search with category tags. Toggles for "and" and/or "or".
 
 ## Things I've Ruled Out
 
@@ -125,4 +123,67 @@ didn't work for me, so I used jquery instead, placing it in the base template.
 $(document).ready(function(){
     $('p:empty').remove();
 });
+```
+
+### Trying to Filter on a DateTime Field with Date Only with Django Filters
+
+`date`, `date__gt` (and `date__gte`), `date__lt` (and `date__lte`) extracts the date from a datetime field.
+
+Here's my `filters.py`:
+
+```
+from blog.models import Post
+import django_filters
+
+
+class PostFilter(django_filters.FilterSet):
+    class Meta:
+        model = Post
+        fields = {
+            "title": ['icontains'],
+            "body": ['icontains'],
+            "created_on": ['date', 'date__gte', 'date__lte'],
+            }
+
+```
+
+### Advanced Search Page Shows *EVERYTHING* Instead of *NOTHING* When Invalid or No Filters Applied
+
+In order to achieve the desired result of showing *NOTHING* instead of *EVERYTHING* when there are no or invalid filters, both of these steps had to be done:
+
+#### Invalid Filter
+
+Overriding this filter (in `filters.py`) will make the queryset return nothing instead of everything if there is an invalid filter.
+
+```
+    @property
+    def qs(self):
+        if not hasattr(self, '_qs'):
+            qs = self.queryset.all()
+            if self.is_bound:
+                if self.form.is_valid():
+                    qs = self.filter_queryset(qs)
+                else:
+                    qs = self.queryset.none()
+            self._qs = qs
+        return self._qs
+
+```
+
+#### No Filters (Like When Loading the Search Page for the First Time)
+
+In the associated view in  `views.py`, I checked if there is a request. Need to update the field names if filters are changed.
+
+```
+    s1 = request.GET.get("title__icontains")
+    s2 = request.GET.get("body__icontains")
+    s3 = request.GET.get("created_on__date")
+    s4 = request.GET.get("created_on__date__gte")
+    s5 = request.GET.get("created_on__date__lte")
+
+    if s1 or s2 or s3 or s4 or s5:
+        search_results = post_filter.qs
+    else:
+        search_results = Post.objects.none()
+
 ```

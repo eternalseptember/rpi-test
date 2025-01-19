@@ -111,19 +111,35 @@ def advanced_search(request):
     queryset = Post.objects.all()
     post_filter = PostFilter(request.GET, queryset)
 
-    # This section makes the advanced search page show nothing instead
-    # of unpaginated everything if there are no filters applied.
+
+
+    """
+    THIS SECTION NEEDS CAREFUL ATTENTION!
+    FIX THE FIELD NAMES AFTER MODIFYING FILTERS!
+
+    This section makes the advanced search page show *NOTHING* instead
+    of *EVERYTHING* if there are no filters applied.
+
+    This combined with the qs override in the filter (filters.py) makes
+    the advanced search page show no posts when first loading into the
+    page and when there's an invalid filter applied.
+    """
     s1 = request.GET.get("title__icontains")
     s2 = request.GET.get("body__icontains")
-    s3 = request.GET.get("created_on")
-    s4 = request.GET.get("created_on__gte")
-    s5 = request.GET.get("created_on__lte")
+    s3 = request.GET.get("created_on__date")
+    s4 = request.GET.get("created_on__date__gte")
+    s5 = request.GET.get("created_on__date__lte")
 
     if s1 or s2 or s3 or s4 or s5:
-        page_obj = post_filter.qs
+        search_results = post_filter.qs
     else:
-        page_obj = Post.objects.none()
-        
+        search_results = Post.objects.none()
+
+
+
+    paginator = Paginator(search_results, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)	
 
     # Output to Template
     context = {
