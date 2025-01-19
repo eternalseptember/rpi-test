@@ -26,7 +26,7 @@
         Even though autoescape was off, the post body was still being escaped
         if searching in any field except the body.
         {% endcomment %}
-        {% if s2 %}
+        {% if query_body %}
             <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
         {% else %}
             <p>{{ post.formatted_markdown }}</p>

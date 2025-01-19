@@ -194,7 +194,7 @@ In the advanced search page, after adding highlighting to the post body, not sea
 The solution was adding a check in the template to see if there was a search query on the body.
 
 ```
-        {% if s2 %}
+        {% if query_body %}
             <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
         {% else %}
             <p>{{ post.formatted_markdown }}</p>
