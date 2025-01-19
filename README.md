@@ -58,20 +58,21 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * The title of each entry's page is a link to its admin edit page.
 * The title of each category's page is a link to its admin edit page.
 * Archives:
-    * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available). There is custom yearly pagination for going to the previous and next years that there are posts for.
+    * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to the page itself, the month headings are links to that month's index of posts (if available), and the days are links to that day's post archives (if available). There is custom yearly pagination for going to the previous and next years that there are posts for.
     * `/archive/YYYY/MM/` is the index listing all of the posts made in that month. There is custom monthly pagination for going to the previous and next months that there are posts for.
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day. There is custom daily pagination for going to the previous and next days that there are posts for.
 * Advanced search page powered by [django-filter](https://django-filter.readthedocs.io/en/stable/index.html).
-    * **NOTE:** Queries on the title and body fields are joined by **and**.
+    * **NOTE:** Queries on the title and body (as well as other fields) are joined by **and**.
+    * Posts' title and body queries are highlighted.
     * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
+    * Can search by category tag.
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
     * Empty or invalid filters *don't* show every post!
-    * Posts' title and body queries are highlighted.
 
 ### Things that I will eventually experiment with
 
 * Search for posts without years? Like searching for all posts made on my birthday, holidays, anniversary, etc.
-* Search with category tags. Toggles for "and" and/or "or".
+* Toggles to search a category tag as "and" (all tags selected) and/or "or" (any of the selected tags).
 
 ## Things I've Ruled Out
 
@@ -107,6 +108,10 @@ In the index template:
 * [I can't understand the django-markdownx's usage](https://stackoverflow.com/questions/42416123/i-cant-understand-the-django-markdownxs-usage/42418210#42418210) Search result I found on duckduckgo.
 * [How to Render Markdown Content in Django](https://bastakiss.com/blog/django-6/how-to-render-markdown-content-in-django-388) Search result I found on duckduckgo.
 * [How to Use Django-Markdownx for Your Blog](https://blog.existenceundefined.com/2023/07/test.html) Google gives me this search result a week after I resolved this issue, while researching a different problem (how to customize markdownxadminpanel).
+
+#### Note
+
+I have since turned off autoescape in `settings.py` (because this is intended to be a personal project hosted on a LAN where I'm the only user), so I have removed the `| safe` filters from my templates.
 
 ### Stray Paragraph Tag
 
@@ -173,7 +178,7 @@ Overriding this filter (in `filters.py`) will make the queryset return nothing i
 
 #### No Filters (Like When Loading the Search Page for the First Time)
 
-In the associated view (in  `views.py`), I checked if there is a request. Need to update the field names if filters are changed.
+In the associated view (in  `views.py`), I checked if there is a request. Need to update the field names if filters are added/deleted/changed.
 
 ```
     s1 = request.GET.get("title__icontains")
@@ -188,11 +193,24 @@ In the associated view (in  `views.py`), I checked if there is a request. Need t
         search_results = Post.objects.none()
 ```
 
-### Autoescape Seemingly Being Ignored
+### Autoescape:False Seemingly Being Ignored
 
-In the advanced search page, after adding highlighting to the post body, not searching the post body caused the post body to escape in the search results, even though autoescape was turned off project-wide.
+ In the advanced search page, the search results' title and body are highlighted if they match the searched term. However, if the advanced search did not include a search of the body text, then the body of the search results were escaped, even with `TEMPLATES.OPTIONS autoescape': False` in `settings.py`.
 
-The solution was adding a check in the template to see if there was a search query on the body.
+Since the `query_body` (and `query_title`) were sent in the context for highlighting:
+
+```
+    context = {
+        "site_title": '<title>My Personal Blog | Advanced Search</title>',
+        "page_title": '<h2>Advanced Search</h2>',
+        "form": post_filter.form,
+        "page_obj": page_obj,
+        "query_title": s1,  # for highlighting
+        "query_body": s2,  # for highlighting
+    }
+```
+
+the solution was adding a check in the template to see if the returned `query_body` had anything. This is the same `s1` and `s2` referenced in the previous solution to show no search results if there are no search filters applied.
 
 ```
         {% if query_body %}

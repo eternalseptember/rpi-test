@@ -1,9 +1,15 @@
-from blog.models import Post
+from blog.models import Post, Category
 import django_filters
+from django_filters import ModelChoiceFilter
 
 
 class PostFilter(django_filters.FilterSet):
-
+    # The following makes the categories menu a single-selection dropdown box
+    # with the empty label as the empty choice. 
+    # Current label is the same thing as the default label, 
+    # but doing it this way to be an explicit reference later.
+    # An equivalent statement can be set in the __init__ override.
+    # categories = ModelChoiceFilter(queryset=Category.objects.all().order_by("name"), empty_label="---------")
 
     class Meta:
         model = Post
@@ -19,6 +25,9 @@ class PostFilter(django_filters.FilterSet):
         self.filters["created_on__date"].label="Created on"
         self.filters["created_on__date__gte"].label="Created on or after"
         self.filters["created_on__date__lte"].label="Created on or before"
+
+        self.filters["categories"].queryset=Category.objects.all().order_by("name")
+        
 
 
     # This override so that the queryset returns *NOTHING* 
