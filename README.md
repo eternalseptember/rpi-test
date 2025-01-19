@@ -125,7 +125,7 @@ $(document).ready(function(){
 });
 ```
 
-### Trying to Filter on a DateTime Field with Date Only with Django Filters
+### Trying to Filter on a DateTime Field with Only Date with Django Filters
 
 `date`, `date__gt` (and `date__gte`), `date__lt` (and `date__lte`) extracts the date from a datetime field.
 
@@ -144,7 +144,6 @@ class PostFilter(django_filters.FilterSet):
             "body": ['icontains'],
             "created_on": ['date', 'date__gte', 'date__lte'],
             }
-
 ```
 
 ### Advanced Search Page Shows *EVERYTHING* Instead of *NOTHING* When Invalid or No Filters Applied
@@ -167,12 +166,11 @@ Overriding this filter (in `filters.py`) will make the queryset return nothing i
                     qs = self.queryset.none()
             self._qs = qs
         return self._qs
-
 ```
 
 #### No Filters (Like When Loading the Search Page for the First Time)
 
-In the associated view in  `views.py`, I checked if there is a request. Need to update the field names if filters are changed.
+In the associated view (in  `views.py`), I checked if there is a request. Need to update the field names if filters are changed.
 
 ```
     s1 = request.GET.get("title__icontains")
@@ -185,5 +183,4 @@ In the associated view in  `views.py`, I checked if there is a request. Need to 
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
-
 ```
