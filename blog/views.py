@@ -1,4 +1,5 @@
 from blog.calendar import BlogHTMLCalendar
+from blog.filters import PostFilter
 from blog.models import Post, Category
 from datetime import date
 from django.core.paginator import Paginator
@@ -106,21 +107,32 @@ def blog_search(request):
 
 
 
-class AdvancedSearch(TemplateView):
-    template_name = "blog/advanced_search.html"
+def advanced_search(request):
+    queryset = Post.objects.all()
+    post_filter = PostFilter(request.GET, queryset)
 
-    def get_context_data(self, *args, **kwargs):
+    # This section makes the advanced search page show nothing instead
+    # of unpaginated everything if there are no filters applied.
+    s1 = request.GET.get("title__icontains")
+    s2 = request.GET.get("body__icontains")
+    s3 = request.GET.get("created_on")
+    s4 = request.GET.get("created_on__gte")
+    s5 = request.GET.get("created_on__lte")
 
+    if s1 or s2 or s3 or s4 or s5:
+        page_obj = post_filter.qs
+    else:
+        page_obj = Post.objects.none()
+        
 
-        # Output to Template
-        site_title = '<title>My Personal Blog | Advanced Search</title>'
-        page_title = '<h2>Advanced Search</h2>'
-
-        context = {
-            "site_title": site_title,
-            "page_title": page_title,
-        }
-        return context
+    # Output to Template
+    context = {
+        "site_title": '<title>My Personal Blog | Advanced Search</title>',
+        "page_title": '<h2>Advanced Search</h2>',
+        "form": post_filter.form,
+        "page_obj": page_obj,
+    }
+    return render(request, "blog/advanced_search.html", context)
 
 
 

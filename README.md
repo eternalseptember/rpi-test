@@ -50,8 +50,8 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Other Features
 
-* Search query is highlighted.
-* Paginated search results.
+* Basic search query is highlighted.
+* Basic search results is paginated.
 * Pagination on the index and category pages.
 * Next/Prev links on each entry's page.
 * The title of each entry's page is a link to its admin edit page.
@@ -60,10 +60,17 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * `/archive/YYYY/` is the yearly archive index. It has that year's calendar printed and then an index listing all of the posts made in that year. The calendar's year header is a link to itself, the month headings are links to that month's index of posts (if available), and the day is a link to that day's post archive (if available). There is custom yearly pagination for going to the previous and next years that there are posts for.
     * `/archive/YYYY/MM/` is the index listing all of the posts made in that month. There is custom monthly pagination for going to the previous and next months that there are posts for.
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day. There is custom daily pagination for going to the previous and next days that there are posts for.
+* Advanced search page powered by [django-filter](https://django-filter.readthedocs.io/en/stable/index.html).
+
+### Currently broken
+
+* Django-filter on datetime fields is giving me an error message that says "Enter a valid date/time".
+    * I also just want to search by date.
+    * And this invalidates the code I put in to hide all posts by default.
 
 ### Things that I will eventually experiment with
 
-* Search posts by date and/or date range.
+* Advanced search by category tags. Toggles for "and" and/or "or" search.
 
 ## Things I've Ruled Out
 
