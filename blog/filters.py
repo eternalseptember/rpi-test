@@ -1,8 +1,9 @@
-from blog.models import Post, Category
+from blog.models import Post
 import django_filters
 
 
 class PostFilter(django_filters.FilterSet):
+
 
     class Meta:
         model = Post
@@ -10,14 +11,14 @@ class PostFilter(django_filters.FilterSet):
             "title": ['icontains'],
             "body": ['icontains'],
             "created_on": ['date', 'date__gte', 'date__lte'],
-            #"categories": ['exact']
+            "categories": ['exact']
             }
 
     def __init__(self, *args, **kwargs):
         super(PostFilter, self).__init__(*args, **kwargs)
         self.filters["created_on__date"].label="Created on"
-        self.filters["created_on__date__gte"].label="Created after"
-        self.filters["created_on__date__lte"].label="Created before"
+        self.filters["created_on__date__gte"].label="Created on or after"
+        self.filters["created_on__date__lte"].label="Created on or before"
 
 
     # This override so that the queryset returns *NOTHING* 

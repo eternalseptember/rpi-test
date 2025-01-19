@@ -129,9 +129,9 @@ def advanced_search(request):
     s3 = request.GET.get("created_on__date")
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
-    #s6 = request.GET.get("categories")
+    s6 = request.GET.get("categories")
 
-    if s1 or s2 or s3 or s4 or s5:
+    if s1 or s2 or s3 or s4 or s5 or s6:
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
@@ -158,7 +158,7 @@ def advanced_search(request):
 class ArchiveDayView(TemplateView):
     template_name = "blog/archive_day.html"
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         year = self.kwargs["year"]
         month = self.kwargs["month"]
         day = self.kwargs["day"]
@@ -213,7 +213,7 @@ class ArchiveDayView(TemplateView):
 class ArchiveMonthView(TemplateView):
     template_name = "blog/archive_month.html"
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         year = self.kwargs["year"]
         month = self.kwargs["month"]
 
@@ -268,7 +268,7 @@ class ArchiveMonthView(TemplateView):
 class ArchiveYearView(TemplateView):
     template_name = "blog/archive_year.html"
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         year = self.kwargs["year"]
 
         posts_list = Post.objects.filter(
