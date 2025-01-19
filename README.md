@@ -50,8 +50,8 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Other Features
 
-* Basic search query is highlighted.
-* Basic search results is paginated.
+* Basic search query (searches for a string in the post's title **or** body) is highlighted.
+* Basic search results are paginated.
 * Pagination on the index and category pages.
 * Next/Prev links on each entry's page.
 * The title of each entry's page is a link to its admin edit page.
@@ -61,9 +61,11 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * `/archive/YYYY/MM/` is the index listing all of the posts made in that month. There is custom monthly pagination for going to the previous and next months that there are posts for.
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day. There is custom daily pagination for going to the previous and next days that there are posts for.
 * Advanced search page powered by [django-filter](https://django-filter.readthedocs.io/en/stable/index.html).
+    * **NOTE:** Queries on the title and body fields are joined by **and**.
     * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
     * Empty or invalid filters *don't* show every post!
+    * Posts' title and body queries are highlighted.
 
 ### Things that I will eventually experiment with
 

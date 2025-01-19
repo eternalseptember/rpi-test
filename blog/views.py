@@ -147,6 +147,8 @@ def advanced_search(request):
         "page_title": '<h2>Advanced Search</h2>',
         "form": post_filter.form,
         "page_obj": page_obj,
+        "query_title": s1,  # for highlighting
+        "query_body": s2,  # for highlighting
     }
     return render(request, "blog/advanced_search.html", context)
 

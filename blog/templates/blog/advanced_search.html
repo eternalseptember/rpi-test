@@ -1,4 +1,5 @@
-{% extends "blog/base.html" %}
+{% extends "blog/search_results.html" %}
+{% load highlighter %}
 
 
 {% block page_content %}
@@ -11,7 +12,7 @@
     <!-- Then print search results. -->
     {% if page_obj %}
     {% for post in page_obj %}
-        <h3><a href="{% url "blog_detail" post.pk %}">{{ post.title }}</a></h3>
+        <h3><a href="{% url "blog_detail" post.pk %}">{{ post.title | highlighter:query_title }}</a></h3>
         <small>
             {{ post.created_on.date | date:"M j, Y" }} | Categories:
             {% for category in post.categories.all %}
@@ -21,7 +22,7 @@
                 <a href="{% url "blog_category" category.name %}">{{ category.name | safe }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </small>
-        <p>{{ post.formatted_markdown | safe }}</p>
+        <p>{{ post.formatted_markdown | highlighter:query_body | safe }}</p>
     {% endfor %}
 
     {% else %}
@@ -30,22 +31,3 @@
     {% endif %}
 {% endblock page_content %}
 
-{% block page_navigation %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="{% querystring page=1 %}">&laquo; first</a>
-                <a href="{% querystring page=page_obj.previous_page_number %}">prev</a>
-            {% endif %}
-
-            <span class="current">
-                ~page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}~
-            </span>
-
-            {% if page_obj.has_next %}
-                <a href="{% querystring page=page_obj.next_page_number %}">next</a>
-                <a href="{% querystring page=page_obj.paginator.num_pages %}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-{% endblock page_navigation %}
