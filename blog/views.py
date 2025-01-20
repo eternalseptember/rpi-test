@@ -100,7 +100,7 @@ def blog_search(request):
 
 def advanced_search(request):
     queryset = Post.objects.all()
-    selected_categories = request.GET.getlist("categories")
+    selected_categories = request.GET.getlist("categories")  # This is getlist instead of regular get!
     post_filter = PostFilter(request.GET, selected_categories=selected_categories, queryset=queryset)
 
     """
