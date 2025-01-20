@@ -1,6 +1,9 @@
 from blog.models import Post, Category
 import django_filters
-from django_filters import ModelChoiceFilter
+from django_filters import BooleanFilter, ModelMultipleChoiceFilter
+from django.forms import CheckboxInput
+from django.db.models import Q
+
 
 
 class PostFilter(django_filters.FilterSet):
@@ -11,14 +14,26 @@ class PostFilter(django_filters.FilterSet):
     # An equivalent statement can be set in the __init__ override.
     # categories = ModelChoiceFilter(queryset=Category.objects.all().order_by("name"), empty_label="---------")
 
+    categories = ModelMultipleChoiceFilter(
+        queryset=Category.objects.all().order_by("name"), 
+        field_name="categories",
+        lookup_expr="exact",
+        )
+    and_categories = BooleanFilter(label="Categories AND", widget=CheckboxInput, method="and_search")
+
+
+
+    def and_search(self, queryset, field_name, value):
+        print('printing from and_search function')
+        return queryset
+
 
     class Meta:
         model = Post
         fields = {
-            "title": ['icontains'],
-            "body": ['icontains'],
-            "created_on": ['date', 'date__gte', 'date__lte'],
-            "categories": ['exact']
+            "title": ["icontains"],
+            "body": ["icontains"],
+            "created_on": ["date", "date__gte", "date__lte"],
             }
 
 
@@ -27,9 +42,6 @@ class PostFilter(django_filters.FilterSet):
         self.filters["created_on__date"].label="Created on"
         self.filters["created_on__date__gte"].label="Created on or after"
         self.filters["created_on__date__lte"].label="Created on or before"
-
-        self.filters["categories"].queryset=Category.objects.all().order_by("name")
-        
 
 
     # This override so that the queryset returns *NOTHING* 

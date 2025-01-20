@@ -120,8 +120,17 @@ def advanced_search(request):
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
     s6 = request.GET.get("categories")
+    s7 = request.GET.get("and_categories")
 
-    if s1 or s2 or s3 or s4 or s5 or s6:
+    if s1 or s2 or s3 or s4 or s5 or s6 or s7:
+        print('printing the get requests')
+        print('s1: {}'.format(s1))
+        print('s2: {}'.format(s2))
+        print('s3: {}'.format(s3))
+        print('s4: {}'.format(s4))
+        print('s5: {}'.format(s5))
+        print('s6: {}'.format(s6))
+        print('s7: {}'.format(s7))
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
