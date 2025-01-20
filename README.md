@@ -64,6 +64,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Advanced search page powered by [django-filter](https://django-filter.readthedocs.io/en/stable/index.html).
     * **NOTE:** Queries on the title and body (as well as other fields) are joined by **and**.
     * Posts' title and body queries are highlighted.
+    * Got rid of the error messages and only made the input box red if there's an error.
     * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
     * Can search by category tag.
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.

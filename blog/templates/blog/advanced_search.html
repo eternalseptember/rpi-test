@@ -4,42 +4,43 @@
 {% block page_content %}
     <!-- Display search form first. -->
     <form action="{% url "advanced_search" %}" method="GET">
-        {{ form }}
+        {% for field in form %}
+            <div class="field_wrapper">
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {% endfor %}
+
         <input type="submit" value="Submit">
     </form>
 
-    <!-- Display any form errors. -->
-    {% if form.errors %}
-    
-    {% endif %}
 
     <!-- Then print search results. -->
     {% if page_obj %}
-    {% for post in page_obj %}
-        <h3><a href="{% url "blog_detail" post.pk %}">{{ post.title | highlighter:query_title }}</a></h3>
-        <small>
-            {{ post.created_on.date | date:"M j, Y" }} | Categories:
-            {% for category in post.categories.all %}
-                {% comment %}
-                the following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
-                {% endcomment %}
-                <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </small>
+        {% for post in page_obj %}
+            <h3><a href="{% url "blog_detail" post.pk %}">{{ post.title | highlighter:query_title }}</a></h3>
+            <small>
+                {{ post.created_on.date | date:"M j, Y" }} | Categories:
+                {% for category in post.categories.all %}
+                    {% comment %}
+                    the following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
+                    {% endcomment %}
+                    <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </small>
 
-        {% comment %}
-        Even though autoescape was off, the post body was still being escaped if searching in any field except the body.
-        {% endcomment %}
-        {% if query_body %}
-            <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
-        {% else %}
-            <p>{{ post.formatted_markdown }}</p>
-        {% endif %}
+            {% comment %}
+            Even though autoescape was off, the post body was still being escaped if searching in any field except the body.
+            {% endcomment %}
+            {% if query_body %}
+                <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
+            {% else %}
+                <p>{{ post.formatted_markdown }}</p>
+            {% endif %}
 
-    {% endfor %}
+        {% endfor %}
 
     {% else %}
-    <p>No posts found.</p>
+        <p>No posts found.</p>
 
     {% endif %}
 {% endblock page_content %}

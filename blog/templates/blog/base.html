@@ -34,20 +34,19 @@
     </div>
     <hr>
 
-    <!-- Title block still here because the 404 page overwrites it. -->
     <div class="page_title">
-    {% block page_title %}{{ page_title }}{% endblock page_title %}
+        {% block page_title %}{{ page_title }}{% endblock page_title %}
     </div>
     
     <div class="page_content">
-    {% block page_content %}{% endblock page_content %}
+        {% block page_content %}{% endblock page_content %}
     </div>
 
     <hr>
     <div class="pagination">
-    {% block page_navigation %}
-        <span class="current_page">~</span>
-    {% endblock page_navigation %}
+        {% block page_navigation %}
+            <span class="current_page">~</span>
+        {% endblock page_navigation %}
     </div>
 
     <script src="{% static "blog/remove_p.js" %}"></script>

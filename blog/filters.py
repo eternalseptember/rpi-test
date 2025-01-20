@@ -11,6 +11,7 @@ class PostFilter(django_filters.FilterSet):
     # An equivalent statement can be set in the __init__ override.
     # categories = ModelChoiceFilter(queryset=Category.objects.all().order_by("name"), empty_label="---------")
 
+
     class Meta:
         model = Post
         fields = {
@@ -19,6 +20,7 @@ class PostFilter(django_filters.FilterSet):
             "created_on": ['date', 'date__gte', 'date__lte'],
             "categories": ['exact']
             }
+
 
     def __init__(self, *args, **kwargs):
         super(PostFilter, self).__init__(*args, **kwargs)

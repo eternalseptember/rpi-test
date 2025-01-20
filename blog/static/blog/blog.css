@@ -30,6 +30,25 @@ h1 {
 }
 
 
+/* Advanced Search Form */
+.page_content > form {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 10px 0px; /* horizontal, vertical */
+}
+.field_wrapper {
+    display: table-row;
+}
+.field_wrapper > label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+input[aria-invalid='true'] {
+    border: 2px solid #B22222;
+}
+
+
 /* Category view */
 .category_description {
     font-style: italic;
