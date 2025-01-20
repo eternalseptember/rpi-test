@@ -25,11 +25,15 @@ class PostFilter(django_filters.FilterSet):
         'field_name' is 'and_categories'.
         'value' is boolean True or False.
         If False, then return the normal search results (which is done with boolean 'OR').
+        If True, then run boolean 'AND' on the queryset with all of the selected categories 
+        (which are passed as categories__id).
         """
         if value is False:
             return queryset
-        print('categories that were selected')
-        print(self.selected_categories)
+
+        for selected_category in self.selected_categories:
+            queryset = queryset.filter(categories__id = selected_category)
+
         return queryset
     
 

@@ -27,7 +27,7 @@ def blog_index(request):
 
 def blog_category(request, category):
     posts = Post.objects.filter(
-        categories__name__exact = category
+        categories__name = category
         ).order_by("-created_on")
 
     paginator = Paginator(posts, 5)
@@ -100,7 +100,8 @@ def blog_search(request):
 
 def advanced_search(request):
     queryset = Post.objects.all()
-    post_filter = PostFilter(request.GET, selected_categories=request.GET.getlist("categories"), queryset=queryset)
+    selected_categories = request.GET.getlist("categories")
+    post_filter = PostFilter(request.GET, selected_categories=selected_categories, queryset=queryset)
 
     """
     THIS SECTION NEEDS CAREFUL ATTENTION!
@@ -118,7 +119,7 @@ def advanced_search(request):
     s3 = request.GET.get("created_on__date")
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
-    s6 = request.GET.get("categories")  # being passed to PostFilter object for filtering
+    s6 = selected_categories  # being passed to PostFilter object for filtering
     s7 = request.GET.get("and_categories")  # non-model field
 
     if s1 or s2 or s3 or s4 or s5 or s6 or s7:
