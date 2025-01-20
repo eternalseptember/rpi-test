@@ -122,7 +122,8 @@ def advanced_search(request):
     s6 = selected_categories  # being passed to PostFilter object for filtering
     s7 = request.GET.get("and_categories")  # non-model field
 
-    if s1 or s2 or s3 or s4 or s5 or s6 or s7:
+    # Omitting a check for s7 because if only the AND button is selected, then return nothing.
+    if s1 or s2 or s3 or s4 or s5 or s6:
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
