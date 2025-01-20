@@ -8,6 +8,11 @@
         <input type="submit" value="Submit">
     </form>
 
+    <!-- Display any form errors. -->
+    {% if form.errors %}
+    
+    {% endif %}
+
     <!-- Then print search results. -->
     {% if page_obj %}
     {% for post in page_obj %}
@@ -23,8 +28,7 @@
         </small>
 
         {% comment %}
-        Even though autoescape was off, the post body was still being escaped
-        if searching in any field except the body.
+        Even though autoescape was off, the post body was still being escaped if searching in any field except the body.
         {% endcomment %}
         {% if query_body %}
             <p>{{ post.formatted_markdown | highlighter:query_body }}</p>

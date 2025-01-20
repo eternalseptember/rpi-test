@@ -1,3 +1,4 @@
+/* Base */
 h1 {
     text-align: center;
 }
@@ -22,15 +23,18 @@ h1 {
     right:0px;
 }
 
+
 /* Highlighting */
 .highlight {
     background-color: #f9e79f;
 }
 
+
 /* Category view */
 .category_description {
     font-style: italic;
 }
+
 
 /* Monthly archive view */
 .archive_index > li {
@@ -41,6 +45,7 @@ h1 {
     font-style: italic;
     font-size: smaller;
 }
+
 
 /* Printed HTML Calendar */
 table.month, table.year {

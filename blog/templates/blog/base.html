@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Title block still here because the 404 page overwrites it. -->
-    {% block site_title %}{{ site_title }}{% endblock site_title %}
+
+    <title>My Personal Blog {% block site_title %}{{ site_title }}{% endblock site_title %}</title>
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'blog/sakura.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/blog.css' %}">
     <script src="{% static "blog/jquery-3.7.1.min.js" %}"></script>
 </head>
+
+
 <body>
-    <h1><a href="{% url "blog_index" %}">My Personal Blog</a></h1>
+    <div class="website_title">
+        <h1><a href="{% url "blog_index" %}">My Personal Blog</a></h1>
+    </div>
 
     <div class="top_nav_bar">
         <div class="nav_links">
@@ -28,21 +32,26 @@
             </form>
         </div>
     </div>
+    <hr>
+
+    <!-- Title block still here because the 404 page overwrites it. -->
+    <div class="page_title">
+    {% block page_title %}{{ page_title }}{% endblock page_title %}
+    </div>
+    
+    <div class="page_content">
+    {% block page_content %}{% endblock page_content %}
+    </div>
 
     <hr>
-    <!-- Title block still here because the 404 page overwrites it. -->
-    {% block page_title %}{{ page_title }}{% endblock page_title %}
-    {% block page_content %}{% endblock page_content %}
-    <hr>
-    {% block page_navigation %}
     <div class="pagination">
-        <span class="step-links">
-            <span class="current">~</span>
-        </span>
-    </div>
+    {% block page_navigation %}
+        <span class="current_page">~</span>
     {% endblock page_navigation %}
+    </div>
 
     <script src="{% static "blog/remove_p.js" %}"></script>
 </body>
+
 </html>
 
