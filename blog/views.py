@@ -134,6 +134,9 @@ def advanced_search(request):
     page_obj = paginator.get_page(page_number)	
 
     # Output to Template
+    # get category names from ID to make highlighting easier.
+    query_categories = [Category.objects.get(id=category_id).name for category_id in s6]
+
     context = {
         "site_title": '| Advanced Search',
         "page_title": '<h2>Advanced Search</h2>',
@@ -141,6 +144,7 @@ def advanced_search(request):
         "page_obj": page_obj,
         "query_title": s1,  # for highlighting
         "query_body": s2,  # for highlighting
+        "query_categories": query_categories,  # for highlighting
     }
     return render(request, "blog/advanced_search.html", context)
 

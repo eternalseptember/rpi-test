@@ -66,14 +66,13 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * Posts' title and body queries are highlighted.
     * Got rid of the error messages and only made the input box's outline red if there's an error.
     * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
-    * Can search by category tag.
+    * Can search by category tag, and searched tags are highlighted.
     * A checkbox to search the categories with boolean `AND` (i.e. search for posts with all selected tags) instead of the default `OR`.
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
     * Empty or invalid filters *don't* show every post!
 
 ### Things that I will eventually experiment with
 
-* Highlighting searched tags in the advanced search page.
 * Search for posts without years? Like searching for all posts made on my birthday, holidays, anniversary, etc.
 
 ## Things I've Ruled Out
