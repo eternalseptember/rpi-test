@@ -112,7 +112,6 @@ def advanced_search(request):
     post_filter = PostFilter(request.GET, queryset)
 
 
-
     """
     THIS SECTION NEEDS CAREFUL ATTENTION!
     FIX THE FIELD NAMES AFTER MODIFYING FILTERS!
@@ -171,42 +170,42 @@ class ArchiveDayView(TemplateView):
         # Output to Template
         site_title = '<title>My Personal Blog | {}</title>'.format(day_date.strftime("%b %-d, %Y"))
         page_title = '<h2>{}</h2>'.format(day_date.strftime("%b %-d, %Y"))
-        prev_day, this_day, next_day = self.get_prev_and_next(year, month, day)
+        prev_link, this_link, next_link = self.get_prev_and_next(year, month, day)
 
         context = {
             "site_title": site_title,
             "page_title": page_title,
             "page_obj": search_results,
-            "prev_day": prev_day,
-            "this_day": this_day,
-            "next_day": next_day
+            "prev_day": prev_link,
+            "this_day": this_link,
+            "next_day": next_link
         }
         return context
 
     def get_prev_and_next(self, year, month, day):
         """
-        prev_day, this_day, next_day are lists in the order of [year, month, day].
+        prev_link, this_link, next_link are lists in the order of [year, month, day].
         """
+        # This section slightly differs depending on type of archive.
         dates = Post.objects.dates("created_on", "day", "ASC")
-        days = [[date.year, date.month, date.day] for date in dates]
-        this_day = [year, month, day]
-        this_day_index = days.index(this_day)
+        self.dates_list = [[date.year, date.month, date.day] for date in dates]
+        this_link = [year, month, day]
 
-        # Previous day, skipping over empty days.
-        prev_index = this_day_index - 1
-        if (0 <= prev_index) and (prev_index < len(days)):
-            prev_day = days[prev_index]
-        else:
-            prev_day = None
+        # The rest of this section is the same.	
+        this_index = self.dates_list.index(this_link)
 
-        # Next day, skipping over empty days.
-        next_index = this_day_index + 1
-        if (0 <= next_index) and (next_index < len(days)):
-            next_day = days[next_index]
-        else:
-            next_day = None
+        # Previous (unit of time), skipping over empty (unit of time).
+        prev_index = this_index - 1
+        prev_link = self.dates_list[prev_index] if self.is_valid_index(prev_index) else None
 
-        return prev_day, this_day, next_day
+        # Next (unit of time), skipping over empty (unit of time).
+        next_index = this_index + 1
+        next_link = self.dates_list[next_index] if self.is_valid_index(next_index) else None
+
+        return prev_link, this_link, next_link
+
+    def is_valid_index(self, index):
+        return (0 <= index) and (index < len(self.dates_list))
 
 
 
@@ -226,42 +225,42 @@ class ArchiveMonthView(TemplateView):
         month_date = date(year, month, 1)
         site_title = '<title>My Personal Blog | {}</title>'.format(month_date.strftime("%B %Y"))
         page_title = '<h2>{}</h2>'.format(month_date.strftime("%B %Y"))
-        prev_month, this_month, next_month = self.get_prev_and_next(year, month)
+        prev_link, this_link, next_link = self.get_prev_and_next(year, month)
 
         context = {
             "site_title": site_title,
             "page_title": page_title,
             "page_obj": search_results,
-            "prev_month": prev_month,
-            "this_month": this_month,
-            "next_month": next_month
+            "prev_month": prev_link,
+            "this_month": this_link,
+            "next_month": next_link
         }
         return context
 
     def get_prev_and_next(self, year, month):
         """
-        prev_month, this_month, next_month are lists in the order of [year, month].
+        prev_link, this_link, next_link are lists in the order of [year, month].
         """
+        # This section slightly differs depending on type of archive.
         dates = Post.objects.dates("created_on", "month", "ASC")
-        months = [[date.year, date.month] for date in dates]
-        this_month = [year, month]
-        this_month_index = months.index(this_month)
+        self.dates_list = [[date.year, date.month] for date in dates]
+        this_link = [year, month]
 
-        # Previous month, skipping over empty months.
-        prev_index = this_month_index - 1
-        if (0 <= prev_index) and (prev_index < len(months)):
-            prev_month = months[prev_index]
-        else:
-            prev_month = None
+        # The rest of this section is the same.
+        this_index = self.dates_list.index(this_link)
 
-        # Next month, skipping over empty months.
-        next_index = this_month_index + 1
-        if (0 <= next_index) and (next_index < len(months)):
-            next_month = months[next_index]
-        else:
-            next_month = None
+        # Previous (unit of time), skipping over empty (unit of time).
+        prev_index = this_index - 1
+        prev_link = self.dates_list[prev_index] if self.is_valid_index(prev_index) else None
 
-        return prev_month, this_month, next_month
+        # Next (unit of time), skipping over empty (unit of time).
+        next_index = this_index + 1
+        next_link = self.dates_list[next_index] if self.is_valid_index(next_index) else None
+
+        return prev_link, this_link, next_link
+
+    def is_valid_index(self, index):
+        return (0 <= index) and (index < len(self.dates_list))
 
 
 
@@ -280,41 +279,43 @@ class ArchiveYearView(TemplateView):
 
         # Output to Template
         site_title = '<title>My Personal Blog | {}</title>'.format(year)
-        prev_year, next_year = self.get_prev_and_next(year)
+        prev_link, this_link, next_link = self.get_prev_and_next(year)
 
         context = {
             "site_title": site_title,
             "page_obj": search_results,
-            "prev_year": prev_year,
-            "this_year": year,
-            "next_year": next_year,
+            "prev_year": prev_link,
+            "this_year": this_link,
+            "next_year": next_link,
             "cal": cal
         }
         return context
     
     def get_prev_and_next(self, year):
         """
-        prev_year and next_year are integers.
+        prev_link, this_link, next_link are lists of [year].
+        Access the integer through list index 0.
         """
+        # This section slightly differs depending on type of archive.
         dates = Post.objects.dates("created_on", "year", "ASC")
-        years = [date.year for date in dates]
-        this_year_index = years.index(year)
+        self.dates_list = [[date.year] for date in dates]
+        this_link = [year]
 
-        # Previous Year
-        prev_index = this_year_index - 1
-        if (0 <= prev_index) and (prev_index < len(years)):
-            prev_year = years[prev_index]
-        else:
-            prev_year = None
+        # The rest of this section is the same.
+        this_index = self.dates_list.index(this_link)
 
-        # Next year
-        next_index = this_year_index + 1
-        if (0 <= next_index) and (next_index < len(years)):
-            next_year = years[next_index]
-        else:
-            next_year = None
+        # Previous (unit of time), skipping over empty (unit of time).
+        prev_index = this_index - 1
+        prev_link = self.dates_list[prev_index] if self.is_valid_index(prev_index) else None
 
-        return prev_year, next_year
+        # Next (unit of time), skipping over empty (unit of time).
+        next_index = this_index + 1
+        next_link = self.dates_list[next_index] if self.is_valid_index(next_index) else None
+
+        return prev_link, this_link, next_link
+
+    def is_valid_index(self, index):
+        return (0 <= index) and (index < len(self.dates_list))
 
 
 
