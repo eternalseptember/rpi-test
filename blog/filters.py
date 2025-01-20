@@ -1,24 +1,16 @@
 from blog.models import Post, Category
+from django.forms import CheckboxInput
 import django_filters
 from django_filters import BooleanFilter, ModelMultipleChoiceFilter
-from django.forms import CheckboxInput
 
 
 class PostFilter(django_filters.FilterSet):
-    # The following makes the categories menu a single-selection dropdown box
-    # with the empty label as the empty choice. 
-    # Current label is the same thing as the default label, 
-    # but doing it this way to be an explicit reference later.
-    # An equivalent statement can be set in the __init__ override.
-    # categories = ModelChoiceFilter(queryset=Category.objects.all().order_by("name"), empty_label="---------")
-
     categories = ModelMultipleChoiceFilter(
         queryset=Category.objects.all().order_by("name"), 
         field_name="categories",
         lookup_expr="exact",
         )
     and_categories = BooleanFilter(label="Categories AND", widget=CheckboxInput, method="and_search")
-
 
     def and_search(self, queryset, field_name, value):
         """
@@ -36,7 +28,7 @@ class PostFilter(django_filters.FilterSet):
 
         return queryset
     
-
+    
     class Meta:
         model = Post
         fields = {

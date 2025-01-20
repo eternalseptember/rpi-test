@@ -2,7 +2,7 @@ from blog.calendar import BlogHTMLCalendar
 from blog.filters import PostFilter
 from blog.models import Post, Category
 from datetime import date
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchHeadline
+from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.db.models.functions import TruncMonth
@@ -75,6 +75,7 @@ def blog_detail(request, pk):
 
 def blog_search(request):
     query = request.GET.get("q")
+
     if query:
         """
         # This is basic search
@@ -83,12 +84,11 @@ def blog_search(request):
             Q(body__icontains = query)
             ).distinct().order_by("-created_on")
         """
-
         # Basic search with postgres
         search_results = Post.objects.annotate(
             search=SearchVector("title", "body")
             ).filter(search=SearchQuery(query))
-        
+
     else:
         search_results = Post.objects.none()
 
