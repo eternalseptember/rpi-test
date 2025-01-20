@@ -2,8 +2,6 @@ from blog.models import Post, Category
 import django_filters
 from django_filters import BooleanFilter, ModelMultipleChoiceFilter
 from django.forms import CheckboxInput
-from django.db.models import Q
-
 
 
 class PostFilter(django_filters.FilterSet):
@@ -22,11 +20,18 @@ class PostFilter(django_filters.FilterSet):
     and_categories = BooleanFilter(label="Categories AND", widget=CheckboxInput, method="and_search")
 
 
-
     def and_search(self, queryset, field_name, value):
-        print('printing from and_search function')
+        """
+        'field_name' is 'and_categories'.
+        'value' is boolean True or False.
+        If False, then return the normal search results (which is done with boolean 'OR').
+        """
+        if value is False:
+            return queryset
+        print('categories that were selected')
+        print(self.selected_categories)
         return queryset
-
+    
 
     class Meta:
         model = Post
@@ -38,6 +43,9 @@ class PostFilter(django_filters.FilterSet):
 
 
     def __init__(self, *args, **kwargs):
+
+        self.selected_categories=kwargs.pop('selected_categories')
+
         super(PostFilter, self).__init__(*args, **kwargs)
         self.filters["created_on__date"].label="Created on"
         self.filters["created_on__date__gte"].label="Created on or after"

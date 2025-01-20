@@ -27,7 +27,7 @@ def blog_index(request):
 
 def blog_category(request, category):
     posts = Post.objects.filter(
-        categories__name__contains = category
+        categories__name__exact = category
         ).order_by("-created_on")
 
     paginator = Paginator(posts, 5)
@@ -100,8 +100,7 @@ def blog_search(request):
 
 def advanced_search(request):
     queryset = Post.objects.all()
-    post_filter = PostFilter(request.GET, queryset)
-
+    post_filter = PostFilter(request.GET, selected_categories=request.GET.getlist("categories"), queryset=queryset)
 
     """
     THIS SECTION NEEDS CAREFUL ATTENTION!
@@ -114,23 +113,15 @@ def advanced_search(request):
     the advanced search page show no posts when first loading into the
     page and when there's an invalid filter applied.
     """
-    s1 = request.GET.get("title__icontains")
-    s2 = request.GET.get("body__icontains")
+    s1 = request.GET.get("title__icontains")  # used for highlighting
+    s2 = request.GET.get("body__icontains")  # used for highlighting
     s3 = request.GET.get("created_on__date")
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
-    s6 = request.GET.get("categories")
-    s7 = request.GET.get("and_categories")
+    s6 = request.GET.get("categories")  # being passed to PostFilter object for filtering
+    s7 = request.GET.get("and_categories")  # non-model field
 
     if s1 or s2 or s3 or s4 or s5 or s6 or s7:
-        print('printing the get requests')
-        print('s1: {}'.format(s1))
-        print('s2: {}'.format(s2))
-        print('s3: {}'.format(s3))
-        print('s4: {}'.format(s4))
-        print('s5: {}'.format(s5))
-        print('s6: {}'.format(s6))
-        print('s7: {}'.format(s7))
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
@@ -150,7 +141,6 @@ def advanced_search(request):
         "query_body": s2,  # for highlighting
     }
     return render(request, "blog/advanced_search.html", context)
-
 
 
 
