@@ -4,14 +4,17 @@
 {% block page_content %}
     <!-- Display search form first. -->
      
-    <form action="{% url "advanced_search" %}" method="GET">
+    <form action="{% url "advanced_search" %}" id="advanced_search_form" method="GET">
         {% for field in form %}
             <div class="field_wrapper">
                 {{ field.label_tag }} {{ field }}
             </div>
         {% endfor %}
-
-        <input type="submit" value="Submit">
+        
+        <div class="advanced_buttons">
+            <input type="reset" value="Reset" onclick="clear_forms()">
+            <input type="submit" value="Submit">
+        </div>
     </form>
 
 
@@ -53,5 +56,8 @@
         <p>No posts found.</p>
 
     {% endif %}
+
+    {% load static %}
+    <script src="{% static "blog/clear_form.js" %}"></script>
 {% endblock page_content %}
 
