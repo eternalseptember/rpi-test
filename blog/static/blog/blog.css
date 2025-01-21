@@ -1,3 +1,17 @@
+[data-theme="light"] {
+    --highlight_color: #f9e79f;
+    --invalid_input_border: #B22222;
+    --cal_day_link_bg: #EBF5Fb;
+    --calendar_border_color: black;
+}
+[data-theme="dark"] {
+    --highlight_color: #583759;
+    --invalid_input_border: #ff0000;
+    --cal_day_link_bg: #211512;
+    --calendar_border_color: #686A6C;
+}
+
+
 /* Base */
 h1 {
     text-align: center;
@@ -26,7 +40,7 @@ h1 {
 
 /* Highlighting */
 .highlight {
-    background-color: #f9e79f;
+    background-color: var(--highlight_color);
 }
 
 
@@ -53,7 +67,7 @@ h2#advanced_search_title {
     vertical-align: middle;
 }
 input[aria-invalid='true'] {
-    border: 2px solid #B22222;
+    border: 2px solid var(--invalid_input_border);
 }
 select#id_categories {
     resize: vertical;
@@ -97,13 +111,13 @@ th.year {
     padding: 0;
     margin: 0;
     font-size: 1.3rem;
-    border: 1px solid black;
+    border: 1px solid var(--calendar_border_color);
 }
 th.month {
     font-size: larger;
 }
 .daily_link {
     font-weight: bold !important;
-    background-color: #EBF5Fb !important;
+    background-color: var(--cal_day_link_bg) !important;
 }
 

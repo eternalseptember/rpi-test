@@ -51,6 +51,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Other Features
 
+* Toggle light and dark modes, and the choice is saved in a localsession cookie.
 * Basic search query (full-text search with postgres in the post's title **or** body) is highlighted.
 * Basic search results are paginated.
 * Pagination on the index and category pages.
@@ -74,10 +75,6 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
     * Clicking on the "Advanced Search" title toggles the visibility of the advanced search form, and the state is saved in a localstorage cookie so that the toggle state is maintained while navigating search results.
     * The reset button returns the form to the values it had before, so if the form had submitted search results (which means those input fields have their attr `value`s set), clicking "reset" will return the form to the `value`s set. Clicking the "Search" link at the top gets the empty, clear form.
-
-### Things that I will eventually experiment with
-
-* Light/dark mode.
 
 ## Things I've Ruled Out
 

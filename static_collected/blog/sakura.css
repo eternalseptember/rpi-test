@@ -1,12 +1,6 @@
 /* CSS Variables */
 /* Color for calendar dates are in blog.css. */
 :root {
-    --main_bg_color: #f9f9f9;
-    --main_text_color: #4a4a4a;
-    --unvisited_text_color: #5453A6;
-    --visited_text_color: #342D7E;
-    --hover_text_color: #982c61;
-    --quote_bg_color: #f1f1f1;
     --font_family:
         -apple-system,
         BlinkMacSystemFont,
@@ -18,6 +12,25 @@
         sans-serif;
     --headers_margin_bottom: 0.5rem;
 }
+
+HTML[data-theme="light"] {
+    --main_bg_color: #f9f9f9;
+    --main_text_color: #4a4a4a;
+    --unvisited_text_color: #5453A6;
+    --visited_text_color: #342D7E;
+    --hover_text_color: #982c61;
+    --quote_bg_color: #f1f1f1;
+}
+
+HTML[data-theme="dark"] {
+    --main_bg_color: #120c0e;
+    --main_text_color: #d9d8dc;
+    --unvisited_text_color: #eb99a1;
+    --visited_text_color: #e26f7a;
+    --hover_text_color: #DA4453;
+    --quote_bg_color: #40363a;
+}
+
 
 /* Sakura.css v1.5.0
  * ================
