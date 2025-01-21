@@ -4,7 +4,9 @@
 {% block page_content %}
     {% if page_obj %}
         <!-- Prints the calendar first. -->
-        {{ cal }}
+         <div class="calendar_container">
+            {{ cal }}
+         </div>
 
         <!-- Then prints the post list. -->
         {% regroup page_obj by month as post_months %}
@@ -12,16 +14,24 @@
          Each group object has two attributes: grouper and list. -->
 
         {% for monthly in post_months %}
-            <h3><a href="{% url "archive_month" monthly.grouper|date:"Y" monthly.grouper|date:"m" %}">
-                {{ monthly.grouper | date:"F" }}
-            </a></h3>
-            <ul class="archive_index">
-                {% for post in monthly.list %}
-                    <li><span class="archive_index_date">{{ post.created_on.date | date:"M j, Y" }}</span> - <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
+            <div class="monthly_post_list">
+                <!-- Month Header Link -->
+                <h3><a href="{% url "archive_month" monthly.grouper|date:"Y" monthly.grouper|date:"m" %}">
+                    {{ monthly.grouper | date:"F" }}
+                </a></h3>
 
+                <!-- List of Posts -->
+                <ul class="archive_index">
+                    {% for post in monthly.list %}
+                        <li>
+                            <span class="archive_index_date">{{ post.created_on.date | date:"M j, Y" }}</span> - 
+                            <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        {% endfor %}
 
     {% else %}
         <p>No posts found.</p>

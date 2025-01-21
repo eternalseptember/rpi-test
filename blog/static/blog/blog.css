@@ -31,6 +31,14 @@ h1 {
 
 
 /* Advanced Search Form */
+h2#advanced_search_title {
+    text-align: center;
+}
+#advanced_search_form_container {
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+}
 #advanced_search_form {
     display: table;
     border-collapse: separate;
@@ -47,11 +55,15 @@ h1 {
 input[aria-invalid='true'] {
     border: 2px solid #B22222;
 }
-.advanced_buttons {
+select#id_categories {
+    resize: vertical;
+}
+.advanced_search_buttons {
     display: table-caption;
     caption-side: bottom;
     text-align: center;
 }
+
 
 /* Category view */
 .category_description {

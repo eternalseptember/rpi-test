@@ -3,11 +3,18 @@
 
 {% block page_content %}
     {% if page_obj %}
-        <ul class="archive_index">
-        {% for post in page_obj %}
-            <li><span class="archive_index_date">{{ post.created_on.date | date:"M j, Y" }}</span> - <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></li>
-        {% endfor %}
-        </ul>
+        <div class="monthly_post_list">
+            <!-- List of Posts -->
+            <ul class="archive_index">
+                {% for post in page_obj %}
+                    <li>
+                        <span class="archive_index_date">{{ post.created_on.date | date:"M j, Y" }}</span> - 
+                        <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
 
     {% else %}
         <p>No posts found.</p>

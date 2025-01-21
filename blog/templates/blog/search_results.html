@@ -4,19 +4,27 @@
 {% block page_content %}
     {% if page_obj %}
         {% for post in page_obj %}
-            <h3><a href="{% url "blog_detail" post.pk %}">{{ post.title | highlighter:query }}</a></h3>
-            <small>
-                {{ post.created_on.date | date:"M j, Y" }} | Categories:
-                {% for category in post.categories.all %}
-                    {% comment %}
-                    the following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
-                    {% endcomment %}
-                    <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </small>
+            <div class="blog_post">
+                <!-- Post Title-->
+                <h3><a href="{% url "blog_detail" post.pk %}">
+                    {{ post.title | highlighter:query }}
+                </a></h3>
 
-            <p>{{ post.formatted_markdown | highlighter:query}}</p>
+                <!-- Date and Categories -->
+                <small>
+                    {{ post.created_on.date | date:"M j, Y" }} | Categories:
+                    {% for category in post.categories.all %}
+                        {% comment %}
+                        the following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
+                        {% endcomment %}
+                        <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </small>
 
+                <!-- Post Body -->
+                <p>{{ post.formatted_markdown | highlighter:query}}</p>
+
+            </div>
         {% endfor %}
 
     {% else %}
@@ -24,6 +32,7 @@
 
     {% endif %}
 {% endblock page_content %}
+
 
 {% block page_navigation %}
     {% if page_obj.has_previous %}

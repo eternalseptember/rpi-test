@@ -51,7 +51,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Other Features
 
-* Basic search query (searches for a string in the post's title **or** body) is highlighted.
+* Basic search query (full-text search with postgres in the post's title **or** body) is highlighted.
 * Basic search results are paginated.
 * Pagination on the index and category pages.
 * Next/Prev links on each entry's page.
@@ -63,13 +63,16 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * `/archive/YYYY/MM/DD` or `/archive/YYYY/M/D` is all of the posts made on that day. There is custom daily pagination for going to the previous and next days that there are posts for.
 * Advanced search page powered by [django-filter](https://django-filter.readthedocs.io/en/stable/index.html).
     * **NOTE:** Queries on the title and body (as well as other fields) are joined by **and**.
+    * Empty or invalid filters *don't* show every post!
     * Posts' title and body queries are highlighted.
     * Got rid of the error messages and only made the input box's outline red if there's an error.
     * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
     * Can search by category tag, and searched tags are highlighted.
     * A checkbox to search the categories with boolean `AND` (i.e. search for posts with all selected tags) instead of the default `OR`.
+    * A dropdown box to choose whether to sort results by date.
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
-    * Empty or invalid filters *don't* show every post!
+    * Clicking on the "Advanced Search" title toggles the visibility of the advanced search form, and the state is saved in a localstorage cookie so that the toggle state is maintained while navigating search results.
+    * The reset button returns the form to the values it had before, so if the form had submitted search results (which means those input fields have their attr `value`s set), clicking "reset" will return the form to the `value`s set. Clicking the "Search" link at the top gets the empty, clear form.
 
 ### Things that I will eventually experiment with
 
@@ -211,7 +214,7 @@ Since the `query_body` (and `query_title`) were sent in the context for highligh
     }
 ```
 
-the solution was adding a check in the template to see if the returned `query_body` had anything. This is the same `s1` and `s2` referenced in the previous solution to show no search results if there are no search filters applied.
+The solution was adding a check in the template to see if the returned `query_body` had anything. This is the same `s1` and `s2` referenced in the previous solution to show no search results if there are no search filters applied.
 
 ```
         {% if query_body %}
@@ -220,3 +223,9 @@ the solution was adding a check in the template to see if the returned `query_bo
             <p>{{ post.formatted_markdown }}</p>
         {% endif %}
 ```
+
+### How to Pass a Request to a Filter (django_filters.FilterSet)
+
+`selected_categories` is a multiple choice field where many choices can be selected at once. If I attempt to access it in the view with `request.GET.get("categories")`, then I will only get a single value, the most recent value clicked.
+
+In order to get all of the selected options, use `request.GET.getlist("categories")`.

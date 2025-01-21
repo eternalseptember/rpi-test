@@ -129,9 +129,9 @@ def advanced_search(request):
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
     s6 = selected_categories  # being passed to PostFilter object for filtering
-    s7 = request.GET.get("and_categories")  # non-model field
 
-    # Omitting a check for s7 because if only the AND button is selected, then return nothing.
+    # Omitting a check for the custom filters ("and_categories" and "sort_how").
+    # If those are the only options selected, then return nothing.
     if s1 or s2 or s3 or s4 or s5 or s6:
         search_results = post_filter.qs
     else:
@@ -148,7 +148,6 @@ def advanced_search(request):
 
     context = {
         "site_title": '| Advanced Search',
-        "page_title": '<h2>Advanced Search</h2>',
         "form": post_filter.form,
         "page_obj": page_obj,
         "query_title": s1,  # for highlighting
