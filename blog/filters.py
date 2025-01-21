@@ -1,7 +1,8 @@
 from blog.models import Post, Category
+from django.db.models.functions import ExtractMonth, ExtractDay
 from django.forms import CheckboxInput
 import django_filters
-from django_filters import BooleanFilter, ChoiceFilter, ModelMultipleChoiceFilter
+from django_filters import BooleanFilter, ChoiceFilter, DateFilter, ModelMultipleChoiceFilter
 
 
 class PostFilter(django_filters.FilterSet):
@@ -14,6 +15,7 @@ class PostFilter(django_filters.FilterSet):
         ]
 
     # Custom non-model fields
+    anniversary_date = DateFilter(label="Created yearly on", method="anniversary_search")
     categories = ModelMultipleChoiceFilter(
         queryset=Category.objects.all().order_by("name"), 
         field_name="categories",
@@ -38,6 +40,19 @@ class PostFilter(django_filters.FilterSet):
         self.filters["created_on__date"].label="Created on"
         self.filters["created_on__date__gte"].label="Created on or after"
         self.filters["created_on__date__lte"].label="Created on or before"
+
+
+    def anniversary_search(self, queryset, field_name, value):
+        """
+        "field_name" is "anniversary_date".
+        "value" is a date, whose year will be ignored.
+        """
+        if value:
+            month = ExtractMonth(value)
+            day = ExtractDay(value)
+            print('anniversary month: {} day {}'.format(month, day))
+            return queryset.filter(created_on__month = month, created_on__day = day)
+        return queryset
 
 
     def and_search(self, queryset, field_name, value):

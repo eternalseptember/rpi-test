@@ -67,6 +67,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * Posts' title and body queries are highlighted.
     * Got rid of the error messages and only made the input box's outline red if there's an error.
     * Can search by date on a DateTime field, but the input has to be in month/day/year order, i.e. any combination of `MM/DD/YYYY` or `M/D/YYYY`.
+    * Can search for posts made on an anniversary date (the year input is ignored).
     * Can search by category tag, and searched tags are highlighted.
     * A checkbox to search the categories with boolean `AND` (i.e. search for posts with all selected tags) instead of the default `OR`.
     * A dropdown box to choose whether to sort results by date.
@@ -76,7 +77,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 
 ### Things that I will eventually experiment with
 
-* Search for posts without years? Like searching for all posts made on my birthday, holidays, anniversary, etc.
+* Light/dark mode.
 
 ## Things I've Ruled Out
 

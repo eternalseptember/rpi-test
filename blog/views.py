@@ -119,10 +119,11 @@ def advanced_search(request):
     s4 = request.GET.get("created_on__date__gte")
     s5 = request.GET.get("created_on__date__lte")
     s6 = selected_categories  # being passed to PostFilter object for filtering
+    s7 = request.GET.get("anniversary_date")
 
     # Omitting a check for the custom filters ("and_categories" and "sort_how").
     # If those are the only options selected, then return nothing.
-    if s1 or s2 or s3 or s4 or s5 or s6:
+    if s1 or s2 or s3 or s4 or s5 or s6 or s7:
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
