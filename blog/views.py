@@ -11,16 +11,21 @@ from django.urls import reverse
 from django.views.generic.base import TemplateView
 
 
+
+paginate_count = 5  # This is basically a global variable.
+def paginate(queryset, request):
+    paginator = Paginator(queryset, paginate_count)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
+
+
+
 def blog_index(request):
     posts = Post.objects.all().order_by("-created_on")
 
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
     # Output to Template
     context = {
-        "page_obj": page_obj
+        "page_obj": paginate(posts, request),
     }
     return render(request, "blog/index.html", context)
 
@@ -30,10 +35,6 @@ def blog_category(request, category):
     posts = Post.objects.filter(
         categories__name = category
         ).order_by("-created_on")
-
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
 
     # Output to Template
     category = Category.objects.get(name=category)
@@ -46,7 +47,7 @@ def blog_category(request, category):
     context = {
         "site_title": '| Category: {}'.format(category),
         "page_title": page_title,
-        "page_obj": page_obj,
+        "page_obj": paginate(posts, request),
     }
     return render(request, "blog/index.html", context)
 
@@ -77,13 +78,6 @@ def blog_search(request):
     query = request.GET.get("q")
 
     if query:
-        """
-        # This is basic search
-        search_results = Post.objects.filter(
-            Q(title__icontains = query) |
-            Q(body__icontains = query)
-            ).distinct().order_by("-created_on")
-        """
         # Basic search with postgres
         search_results = Post.objects.annotate(
             search=SearchVector("title", "body")
@@ -92,16 +86,12 @@ def blog_search(request):
     else:
         search_results = Post.objects.none()
 
-    paginator = Paginator(search_results, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
     # Output to Template
     context = {
         "site_title": '| Search: {}'.format(query),
         "page_title": '<h2>search: {}</h2>'.format(query),
-        "page_obj": page_obj,
-        "query": query
+        "page_obj": paginate(search_results, request),
+        "query": query,
     }
     return render(request, "blog/search_results.html", context)
 
@@ -138,10 +128,6 @@ def advanced_search(request):
         search_results = Post.objects.none()
 
 
-    paginator = Paginator(search_results, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)	
-
     # Output to Template
     # get category names from ID to make highlighting easier.
     query_categories = [Category.objects.get(id=category_id).name for category_id in s6]
@@ -149,7 +135,7 @@ def advanced_search(request):
     context = {
         "site_title": '| Advanced Search',
         "form": post_filter.form,
-        "page_obj": page_obj,
+        "page_obj": paginate(search_results, request),
         "query_title": s1,  # for highlighting
         "query_body": s2,  # for highlighting
         "query_categories": query_categories,  # for highlighting
@@ -180,7 +166,7 @@ class ArchiveDayView(TemplateView):
             "page_obj": search_results,
             "prev_day": prev_link,
             "this_day": this_link,
-            "next_day": next_link
+            "next_day": next_link,
         }
         return context
 
@@ -233,7 +219,7 @@ class ArchiveMonthView(TemplateView):
             "page_obj": search_results,
             "prev_month": prev_link,
             "this_month": this_link,
-            "next_month": next_link
+            "next_month": next_link,
         }
         return context
 
@@ -286,7 +272,7 @@ class ArchiveYearView(TemplateView):
             "prev_year": prev_link,
             "this_year": this_link,
             "next_year": next_link,
-            "cal": cal
+            "cal": cal,
         }
         return context
     
@@ -329,7 +315,7 @@ class ArchiveView(TemplateView):
         context = {
             "site_title": '| Archives',
             "page_title": '<h2>Archives</h2>',
-            "years": years
+            "years": years,
         }
         return context
 

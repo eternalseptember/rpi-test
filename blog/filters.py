@@ -50,10 +50,8 @@ class PostFilter(django_filters.FilterSet):
         """
         if value is False:
             return queryset
-
         for selected_category in self.selected_categories:
             queryset = queryset.filter(categories__id = selected_category)
-
         return queryset
 
 
