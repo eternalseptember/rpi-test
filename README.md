@@ -75,6 +75,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * Advanced search results are paginated with the [{% querystring %}](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#dynamic-usage) template tage.
     * Clicking on the "Advanced Search" title toggles the visibility of the advanced search form, and the state is saved in a localstorage cookie so that the toggle state is maintained while navigating search results.
     * The reset button returns the form to the values it had before, so if the form had submitted search results (which means those input fields have their attr `value`s set), clicking "reset" will return the form to the `value`s set. Clicking the "Search" link at the top gets the empty, clear form.
+    * A button to clear just the multi-select categories section.
 
 ## Things I've Ruled Out
 

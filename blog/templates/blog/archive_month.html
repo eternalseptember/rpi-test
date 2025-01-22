@@ -26,17 +26,17 @@
 {% block page_navigation %}
     {% if prev_month %}
         <a href="{% url "archive_month" prev_month.0 prev_month.1 %}">
-            ({{ prev_month.1 | month_name }} {{ prev_month.0 }})
+            {{ prev_month.1 | month_name }} {{ prev_month.0 }}
         </a>
     {% endif %}
 
     <span class="current_page">
-        ~({{ this_month.1 | month_name }} {{ this_month.0 }})~
+        ~{{ this_month.1 | month_name }} {{ this_month.0 }}~
     </span>
 
     {% if next_month %}
         <a href="{% url "archive_month" next_month.0 next_month.1 %}">
-            ({{ next_month.1 | month_name }} {{ next_month.0 }})
+            {{ next_month.1 | month_name }} {{ next_month.0 }}
         </a>
     {% endif %}
 {% endblock page_navigation %}

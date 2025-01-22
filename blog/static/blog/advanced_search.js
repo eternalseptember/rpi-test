@@ -18,7 +18,17 @@ function hide_search() {
 (localStorage.getItem("search_hidden") == null) ? show_search() : hide_search();
 
 $(document).ready(function() {
+    // Toggles the title and search form.
     $("#advanced_search_title").click(function() {
         (localStorage.getItem("search_hidden") == null) ? hide_search() : show_search();
     });
+
+    // Clears the multiselect field.
+    $("#clear_categories").click(function() {
+        $('select[multiple]').val('');
+    });
 });
+
+
+
+
