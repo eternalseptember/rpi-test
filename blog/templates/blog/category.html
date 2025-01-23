@@ -1,0 +1,9 @@
+{% extends "blog/index.html" %}
+
+
+{% block page_title %}
+    {{ block.super }}
+    {% if description %}
+        <span class="category_description">{{ description }}</span>
+    {% endif %}
+{% endblock page_title %}

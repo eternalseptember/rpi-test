@@ -41,15 +41,15 @@ def blog_category(request, category):
     category_edit_url = reverse("admin:{}_{}_change"
                   .format(category._meta.app_label, category._meta.model_name), 
                   args=[category.id])
-    page_title = '<h2>category: <a href="{}">{}</a></h2>'.format(category_edit_url, category)
-    page_title += '<span class="category_description">{}</span>'.format(category.description)
+    page_title = 'category: <a href="{}">{}</a>'.format(category_edit_url, category)
 
     context = {
-        "site_title": '| Category: {}'.format(category),
+        "site_title": 'Category: {}'.format(category),
         "page_title": page_title,
+        "description": category.description,
         "page_obj": paginate(posts, request),
     }
-    return render(request, "blog/index.html", context)
+    return render(request, "blog/category.html", context)
 
 
 
@@ -63,8 +63,8 @@ def blog_detail(request, pk):
                   args=[post.pk])
 
         context = {
-            "site_title": '| {}'.format(post.title),
-            "page_title": '<h2><a href="{}">{}</a></h2>'.format(post_edit_url, post.title),
+            "site_title": post.title,
+            "page_title": '<a href="{}">{}</a>'.format(post_edit_url, post.title),
             "post": post,
         }
         return render(request, "blog/detail.html", context)
@@ -88,8 +88,8 @@ def blog_search(request):
 
     # Output to Template
     context = {
-        "site_title": '| Search: {}'.format(query),
-        "page_title": '<h2>search: {}</h2>'.format(query),
+        "site_title": 'Search: {}'.format(query),
+        "page_title": 'search: {}'.format(query),
         "page_obj": paginate(search_results, request),
         "query": query,
     }
@@ -134,7 +134,7 @@ def advanced_search(request):
     query_categories = [Category.objects.get(id=category_id).name for category_id in s6]
 
     context = {
-        "site_title": '| Advanced Search',
+        "site_title": 'Advanced Search',
         "form": post_filter.form,
         "page_obj": paginate(search_results, request),
         "query_title": s1,  # for highlighting
@@ -194,8 +194,8 @@ class ArchiveDayView(ArchiveTimeView):
         day_date = day_date.strftime("%b %-d, %Y")
 
         context = {
-            "site_title": '| {}'.format(day_date),
-            "page_title": '<h2>{}</h2>'.format(day_date),
+            "site_title": day_date,
+            "page_title": day_date,
             "page_obj": search_results,
             "prev_day": nav_links[0],
             "this_day": nav_links[1],
@@ -226,8 +226,8 @@ class ArchiveMonthView(ArchiveTimeView):
         month_date = date(year, month, 1).strftime("%B %Y")
 
         context = {
-            "site_title": '| {}'.format(month_date),
-            "page_title": '<h2>{}</h2>'.format(month_date),
+            "site_title": month_date,
+            "page_title": month_date,
             "page_obj": search_results,
             "prev_month": nav_links[0],
             "this_month": nav_links[1],
@@ -257,7 +257,7 @@ class ArchiveYearView(ArchiveTimeView):
 
         # Output to Template
         context = {
-            "site_title": '| {}'.format(year),
+            "site_title": 'Year {}'.format(year),
             "page_obj": search_results,
             "prev_year": nav_links[0],
             "this_year": nav_links[1],
@@ -277,8 +277,8 @@ class ArchiveView(TemplateView):
 
         # Output to Template
         context = {
-            "site_title": '| Archives',
-            "page_title": '<h2>Archives</h2>',
+            "site_title": 'Archives',
+            "page_title": 'Archives',
             "years": years,
         }
         return context

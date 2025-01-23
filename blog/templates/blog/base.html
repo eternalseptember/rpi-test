@@ -5,7 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Personal Blog {% block site_title %}{{ site_title }}{% endblock site_title %}</title>
+    <title>My Personal Blog 
+        {% block site_title %}
+            {% if site_title %}
+            | {{ site_title }}
+            {% endif %}
+        {% endblock site_title %}
+    </title>
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'blog/sakura.css' %}">
@@ -36,7 +42,11 @@
     <hr>
 
     <div class="page_title">
-        {% block page_title %}{{ page_title }}{% endblock page_title %}
+        {% block page_title %}
+            {% if page_title %}
+                <h2>{{ page_title }}</h2>
+            {% endif %}
+        {% endblock page_title %}
     </div>
     
     <div class="page_content">
