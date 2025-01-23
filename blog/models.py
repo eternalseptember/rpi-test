@@ -21,7 +21,6 @@ class Post(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     body = MarkdownxField()
     categories = models.ManyToManyField("Category", related_name="posts")
-    # categories = models.ManyToManyField("Category", related_name="posts", through="Connection")
 
     # Create a property that returns the markdown instead
     @property
@@ -31,10 +30,3 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-"""
-class Connection(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    definition = models.TextField()
-"""
-    
