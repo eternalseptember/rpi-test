@@ -130,7 +130,7 @@ def advanced_search(request):
 
 
     # Output to Template
-    # get category names from ID to make highlighting easier.
+    # Get category names from ID to make highlighting easier.
     query_categories = [Category.objects.get(id=category_id).name for category_id in s6]
 
     context = {
