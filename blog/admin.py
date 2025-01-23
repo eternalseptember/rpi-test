@@ -27,7 +27,6 @@ class CategoryAdmin(admin.ModelAdmin):
     @admin.display(description="number of posts")
     def post_count(self, obj):
         return obj.post_count
-
     post_count.admin_order_field = "post_count"
     
 
@@ -49,9 +48,9 @@ class CategoryAdmin(admin.ModelAdmin):
         
         posts_list += '</ol>'
         return format_html(posts_list)
-    
 
-    # Link to the category from the admin page.
+    
+    # Link to the public category page from admin.
     def view_category(self, obj):
         link_url = reverse("blog_category", kwargs={"category": obj.name})
         link = '<a href="{}" target="_blank">view</a>'.format(link_url)
@@ -88,7 +87,7 @@ class PostAdmin(MarkdownxModelAdmin):
         form = super(PostAdmin, self).get_form(request, obj, **kwargs)
         return form
 
-    # Link to the published post.
+    # Link to the published post from admin.
     def view_post(self, obj):
         link_url = reverse("blog_detail", kwargs={"pk": obj.id})
         link = '<a href="{}" target="_blank">view</a>'.format(link_url)
