@@ -1,9 +1,16 @@
-from blog.models import Category, Post
+from blog.models import Category, Post, Connection
 from django.contrib import admin
 from django.db.models import Count
 from django.urls import reverse
 from django.utils.html import format_html
 from markdownx.admin import MarkdownxModelAdmin
+
+
+
+class Connection_Inline(admin.TabularInline):
+    model = Connection
+    extra = 5
+
 
 
 # These classes are for customizing the appearance of models in the admin panel.
@@ -79,7 +86,8 @@ class PostAdmin(MarkdownxModelAdmin):
 
     # When adding or editing a post.
     readonly_fields = ["view_post"]
-    filter_horizontal = ["categories"]
+    # filter_horizontal = ["categories"]  # this splits the categories into two sections: selected and unselected
+    inlines = [Connection_Inline]
 
 
     # Resizes the title's text box.
@@ -100,4 +108,12 @@ class PostAdmin(MarkdownxModelAdmin):
             return ["view_post"]
         else:
             return []
+
+
+
+@admin.register(Connection)
+class ConnectionAdmin(admin.ModelAdmin):
+    list_display = ("category", "post")
+
+
 

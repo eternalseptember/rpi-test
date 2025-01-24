@@ -67,7 +67,7 @@ def blog_detail(request, pk):
             "page_title": '<a href="{}">{}</a>'.format(post_edit_url, post.title),
             "post": post,
         }
-        return render(request, "blog/detail.html", context)
+        return render(request, "blog/detail_test.html", context)
 
     except Post.DoesNotExist:
         return render(None, "blog/404.html", context={})

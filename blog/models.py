@@ -5,7 +5,7 @@ from markdownx.utils import markdownify
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30, verbose_name="category name")
+    name = models.CharField(max_length=30, verbose_name="categories")
     description = models.TextField(blank=True)
 
     class Meta:
@@ -20,7 +20,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(default=now)
     last_modified = models.DateTimeField(auto_now=True)
     body = MarkdownxField()
-    categories = models.ManyToManyField("Category", related_name="posts")
+    categories = models.ManyToManyField("Category", through="Connection", related_name="posts")
 
     # Create a property that returns the markdown instead
     @property
@@ -29,4 +29,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Connection(models.Model):
+    category = models.ForeignKey("Category", verbose_name="category", on_delete=models.CASCADE)
+    post = models.ForeignKey("Post", verbose_name="post", on_delete=models.CASCADE)
+    comment = models.TextField(blank=True)
 

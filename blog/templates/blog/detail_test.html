@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+
+
+{% block page_content %}
+    <div class="blog_post">
+        <!-- Date and Categories -->
+        <small>
+            {{ post.created_on.date | date:"M j, Y" }} | Categories:
+            {% for category in post.categories.all %}
+                <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </small>
+
+        <!-- Post Body -->
+        <p>{{ post.formatted_markdown }}</p>
+    </div>
+{% endblock page_content %}
+
+
+{% block page_navigation %}
+    {% if post.get_previous_by_created_on %}
+        <a href="{% url "blog_detail" post.get_previous_by_created_on.pk %}">prev</a>
+    {% endif %}
+
+    <span class="current_page">~</span>
+
+    {% if post.get_next_by_created_on.pk %}
+        <a href="{% url "blog_detail" post.get_next_by_created_on.pk %}">next</a>
+    {% endif %}
+{% endblock page_navigation %}
+

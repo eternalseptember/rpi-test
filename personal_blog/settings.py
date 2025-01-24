@@ -142,3 +142,10 @@ MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Reorder the admin panel
+from . import reorder_admin
+from django.contrib import admin
+admin.AdminSite.get_app_list = reorder_admin.get_app_list
+
