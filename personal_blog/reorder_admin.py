@@ -1,6 +1,3 @@
-
-
-
 ADMIN_ORDERING = (
     ('auth', (
         'User'
@@ -43,4 +40,3 @@ def get_app_list(self, request, app_label=None):
                     app['models'].remove(model)
         app['models'].sort(key=lambda x: ao[1].index(x['object_name']))
     return app_list
-

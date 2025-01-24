@@ -19,9 +19,9 @@ The foundation of this blog project began from [this tutorial](https://realpytho
     * Turning off autoescape shouldn't be done for projects that will be hosted on the internet with other users, but this project is ultimately going to be hosted on an internal raspberry pi where I'm going to be the only user.
 * Implemented static files for css and javascript.
 * Enabled image upload to the media folder.
-* Added a description field to categories and updated the category form accordingly.
+* Added a description field to categories and updated the category template accordingly.
+* Created a custom through table, Connections (in `models.py`) that links posts and categories and has a field for a comment on that connection.
 * Registered models to the admin panel using the decorator instead of the object.
-* Made the views output some routine HTML (like site and page titles) in order to reduce the number of template HTML files to manage.
 
 ### Admin Panel
 
@@ -29,7 +29,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Centered the change form action buttons.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
 * Categories and posts lists are paginated.
-* Reordered how the models are listed. See `personal_blog/reorder_admin` and the last few lines of `personal_blog/settings.py`.
+* Reordered how the models are listed. See `personal_blog/reorder_admin.py` and the last few lines of `personal_blog/settings.py`.
 
 #### CategoryAdmin
 
@@ -47,7 +47,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Moved the change form actions to the bottom.
 * In the post admin and in a post's edit page, there's a link to that post's public detail page.
 * In a post's public detail page, there is a link to the post's admin edit page.
-* In the add/edit a post admin page, resized the title widget ~~and separated the categories list~~.
+* In the add/edit a post admin page, resized the title widget.
 * In the add/edit a post admin page, the categories section is tabular inline with five extra entries for the custom through table (model `Connections`).
 * Made the created_on date/time editable fields, with the current date/time as the default, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post, and made the preview collapsible.
@@ -57,7 +57,8 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Toggle light and dark modes, and the choice is saved in a localsession cookie.
 * Basic search query (full-text search with postgres in the post's title **or** body) is highlighted.
 * Basic search results are paginated.
-* Pagination on the index and category pages.
+* Pagination on the index ~~and category pages~~. The template for this view (`templates/blog/category.html`) is still available.
+* There is an alternate category page (`templates/blog/category_definition.html`) that lists posts that are tagged with that category and comments on that connection, if any.
 * Next/Prev links on each entry's page.
 * The title of each entry's page is a link to its admin edit page.
 * The title of each category's page is a link to its admin edit page.

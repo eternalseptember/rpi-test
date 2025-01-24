@@ -13,7 +13,7 @@
 
 
 /* Base */
-h1 {
+h1, h2 {
     text-align: center;
 }
 .pagination {
@@ -36,6 +36,15 @@ h1 {
     bottom:-7px;
     right:0px;
 }
+li {
+    margin: 0px;
+}
+
+
+/* Detailed view */
+.blog_detail_title {
+    text-align: left !important;
+}
 
 
 /* Highlighting */
@@ -45,9 +54,6 @@ h1 {
 
 
 /* Advanced Search Form */
-h2#advanced_search_title {
-    text-align: center;
-}
 #advanced_search_form_container {
     width: 60%;
     margin: 0 auto;
@@ -82,12 +88,15 @@ select#id_categories {
 /* Category view */
 .category_description {
     font-style: italic;
+    text-align: center;
+}
+.connection_comment {
+    margin: 0px;
 }
 
 
 /* Monthly archive view */
 .archive_index > li {
-    margin: 0;
     padding: 0.1em;
 }
 .archive_index_date {

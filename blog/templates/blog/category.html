@@ -3,7 +3,8 @@
 
 {% block page_title %}
     {{ block.super }}
-    {% if description %}
-        <span class="category_description">{{ description }}</span>
+    {% if category.description %}
+        <div class="category_description">{{ category.description }}</div>
     {% endif %}
+    <br>
 {% endblock page_title %}

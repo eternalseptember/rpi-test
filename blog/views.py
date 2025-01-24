@@ -46,10 +46,10 @@ def blog_category(request, category):
     context = {
         "site_title": 'Category: {}'.format(category),
         "page_title": page_title,
-        "description": category.description,
-        "page_obj": paginate(posts, request),
+        "category": category,
+        "page_obj": posts,
     }
-    return render(request, "blog/category.html", context)
+    return render(request, "blog/category_definition.html", context)
 
 
 
