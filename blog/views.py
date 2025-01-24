@@ -1,6 +1,6 @@
 from blog.calendar import BlogHTMLCalendar
 from blog.filters import PostFilter
-from blog.models import Post, Category
+from blog.models import Post, Category, Connection
 from datetime import date
 from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.core.paginator import Paginator
@@ -67,7 +67,7 @@ def blog_detail(request, pk):
             "page_title": '<a href="{}">{}</a>'.format(post_edit_url, post.title),
             "post": post,
         }
-        return render(request, "blog/detail_test.html", context)
+        return render(request, "blog/detail_extended.html", context)
 
     except Post.DoesNotExist:
         return render(None, "blog/404.html", context={})

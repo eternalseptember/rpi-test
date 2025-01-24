@@ -5,14 +5,27 @@
     <div class="blog_post">
         <!-- Date and Categories -->
         <small>
-            {{ post.created_on.date | date:"M j, Y" }} | Categories:
+            {{ post.created_on.date | date:"M j, Y" }} {% comment %}| Categories:
             {% for category in post.categories.all %}
                 <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
+            {% endcomment %}
         </small>
 
         <!-- Post Body -->
         <p>{{ post.formatted_markdown }}</p>
+    </div>
+
+    <!-- Section Explaining the Categories -->
+    <div class="post_categories">
+        <h3>Categories</h3>
+        <ul class="categories_list">
+            {% for connection in post.connection_set.select_related %}
+                <li>
+                    <a href="{% url "blog_category" connection.category.name %}">{{ connection.category.name }}</a> - {{ connection.comment }}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock page_content %}
 
