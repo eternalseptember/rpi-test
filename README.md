@@ -29,10 +29,12 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Centered the change form action buttons.
 * Put messagelist on fixed position to the bottom so that it removes itself from the flexbox calculations, so the create/edit a post form stays in place after submitting a post.
 * Categories and posts lists are paginated.
+* Reordered how the models are listed. See `personal_blog/reorder_admin` and the last few lines of `personal_blog/settings.py`.
 
 #### CategoryAdmin
 
 * Categories list is alphabetized and shows the number of posts in that category, and both columns are sortable.
+* Categories list show the truncated category description.
 * The edit view of a category has the list of posts in that category, and each post is a link to that post's edit page.
 * In the category admin and in a category's edit page, there's a link to that category's public detail page.
 * In a category's public detail page, there is a link to the category's admin edit page.
@@ -45,7 +47,8 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Moved the change form actions to the bottom.
 * In the post admin and in a post's edit page, there's a link to that post's public detail page.
 * In a post's public detail page, there is a link to the post's admin edit page.
-* In the add/edit a post admin page, resized the title widget and separated the categories list.
+* In the add/edit a post admin page, resized the title widget ~~and separated the categories list~~.
+* In the add/edit a post admin page, the categories section is tabular inline with five extra entries for the custom through table (model `Connections`).
 * Made the created_on date/time editable fields, with the current date/time as the default, and made the datetime widget into a single line.
 * Markdown editor with [Markdownx](https://neutronx.github.io/django-markdownx/installation/) in the body of the post, and made the preview collapsible.
 
