@@ -56,6 +56,14 @@
 
 
 /* ********************************************************** */
+/* This resizes the connection.comment textarea in the admin. */
+.field-comment textarea {
+    height: 17px;
+}
+
+
+
+/* ********************************************************** */
 /* This is for testing only */
 /*
 html[data-theme="dark"], :root {

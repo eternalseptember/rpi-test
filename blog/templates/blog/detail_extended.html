@@ -3,17 +3,22 @@
 
 {% block page_content %}
     <div class="blog_post">
-        <!-- Date and Categories -->
-        <small>
-            {{ post.created_on.date | date:"M j, Y" }} {% comment %}| Categories:
-            {% for category in post.categories.all %}
-                <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            {% endcomment %}
-        </small>
+        <!-- Post Metadata -->
+        <div class="post_meta_info">
+            <small>
+                {{ post.created_on.date | date:"M j, Y" }} {% comment %}| Categories:
+                {% for category in post.categories.all %}
+                    <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                {% endcomment %}
+            </small>
+        </div>
 
         <!-- Post Body -->
-        <p>{{ post.formatted_markdown }}</p>
+        <div class="post_body">
+            <p>{{ post.formatted_markdown }}</p>
+        </div>
+        
     </div>
 
     <!-- Section Explaining the Categories -->
@@ -22,7 +27,7 @@
         <ul class="categories_list">
             {% for connection in post.connection_set.select_related %}
                 <li>
-                    <a href="{% url "blog_category" connection.category.name %}">{{ connection.category.name }}</a> - {{ connection.comment }}
+                    <a href="{% url "blog_category" connection.category.name %}">{{ connection.category.name }}</a> {% if connection.comment %}- {{ connection.comment }}{% endif %}
                 </li>
             {% endfor %}
         </ul>

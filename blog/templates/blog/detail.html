@@ -4,15 +4,20 @@
 {% block page_content %}
     <div class="blog_post">
         <!-- Date and Categories -->
-        <small>
-            {{ post.created_on.date | date:"M j, Y" }} | Categories:
-            {% for category in post.categories.all %}
-                <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </small>
+        <div class="post_meta_info">
+            <small>
+                {{ post.created_on.date | date:"M j, Y" }} | Categories:
+                {% for category in post.categories.all %}
+                    <a href="{% url "blog_category" category.name %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </small>
+        </div>
 
         <!-- Post Body -->
-        <p>{{ post.formatted_markdown }}</p>
+        <div class="post_body">
+            <p>{{ post.formatted_markdown }}</p>
+        </div>
+
     </div>
 {% endblock page_content %}
 

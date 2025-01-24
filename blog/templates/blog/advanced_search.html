@@ -45,26 +45,30 @@
                 {% endif %}
                 
                 <!-- Date and Categories -->
-                <small>
-                    {{ post.created_on.date | date:"M j, Y" }} | Categories:
-                    {% for category in post.categories.all %}
-                        {% comment %}
-                        The following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
-                        It also checks to if any of the categories were searched, and if so, highlights it. Otherwise, it outputs the category without the template filter that would cause invisible highlights that shows up in the source code.
-                        {% endcomment %}
-                        <a href="{% url "blog_category" category.name %}">{% if category.name in query_categories %}{{ category.name | highlighter:category.name }}{% else %}{{ category.name }}{% endif %}</a>{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </small>
+                <div class="post_meta_info">
+                    <small>
+                        {{ post.created_on.date | date:"M j, Y" }} | Categories:
+                        {% for category in post.categories.all %}
+                            {% comment %}
+                            The following line is all on a single line because spaces and line breaks add an extra space at the end of each category tag, which does not look as good if the list is stylized to add commas in between each item.
+                            It also checks to if any of the categories were searched, and if so, highlights it. Otherwise, it outputs the category without the template filter that would cause invisible highlights that shows up in the source code.
+                            {% endcomment %}
+                            <a href="{% url "blog_category" category.name %}">{% if category.name in query_categories %}{{ category.name | highlighter:category.name }}{% else %}{{ category.name }}{% endif %}</a>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </small>
+                </div>
 
                 {% comment %}
                 Even though autoescape was off, the post body was still being escaped if searching in any field except the body.
                 {% endcomment %}
                 <!-- Post Body -->
-                {% if query_body %}
-                    <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
-                {% else %}
-                    <p>{{ post.formatted_markdown }}</p>
-                {% endif %}
+                <div class="post_body">
+                    {% if query_body %}
+                        <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
+                    {% else %}
+                        <p>{{ post.formatted_markdown }}</p>
+                    {% endif %}
+                </div>
 
             </div>
         {% endfor %}
