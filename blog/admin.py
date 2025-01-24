@@ -6,7 +6,7 @@ from django.utils.html import format_html
 from markdownx.admin import MarkdownxModelAdmin
 
 
-
+# Adds five extra rows of categories when adding or editing a post.
 class Connection_Inline(admin.TabularInline):
     model = Connection
     extra = 5
@@ -18,7 +18,7 @@ class Connection_Inline(admin.TabularInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     # Model overview management page.
-    list_display = ("name", "post_count", "view_category")
+    list_display = ("name", "post_count", "description", "view_category")
     ordering = ["name"]
     list_per_page = 20
 
@@ -31,10 +31,16 @@ class CategoryAdmin(admin.ModelAdmin):
         queryset = super().get_queryset(request)
         return queryset.annotate(post_count=Count("posts"))
 
-    @admin.display(description="number of posts")
+    @admin.display(description="# of posts")
     def post_count(self, obj):
         return obj.post_count
     post_count.admin_order_field = "post_count"
+
+
+    # Shows a truncated description.
+    @admin.display(description="description")
+    def description(self, obj):
+        return obj.description[:40]
     
 
     # Generates a list of links to posts under a category.
