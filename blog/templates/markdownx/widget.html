@@ -1,20 +1,14 @@
 <div class="markdownx">
     {% include 'django/forms/widgets/textarea.html' %}
     <button type="button" class="mdx_preview_toggle" style="color:white; background-color:#008CBA; border:none; border-radius:4px; padding:10px 15px; cursor:pointer;">Preview</button>
-    <div class="markdownx-preview" style="display:none; overflow:hidden;"></div>
+    <div class="markdownx-preview" style="overflow:hidden;"></div>
 
     <script>
-        var mdx_toggles = document.getElementsByClassName("mdx_preview_toggle");
-        
-        for (var i = 0; i < mdx_toggles.length; i++) {
-            mdx_toggles[i].addEventListener("click", function() {
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
-                }
+        $(document).ready(function() {
+            // Toggles the preview.
+            $(".mdx_preview_toggle").click(function() {
+                $(this).next("div").toggle();
             });
-        }
+        });
     </script>
 </div>
