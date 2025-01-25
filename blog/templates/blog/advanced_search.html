@@ -64,9 +64,9 @@
                 <!-- Post Body -->
                 <div class="post_body">
                     {% if query_body %}
-                        <p>{{ post.formatted_markdown | highlighter:query_body }}</p>
+                        <p>{{ post.formatted_markdown | highlighter:query_body | safe }}</p>
                     {% else %}
-                        <p>{{ post.formatted_markdown }}</p>
+                        <p>{{ post.formatted_markdown | safe }}</p>
                     {% endif %}
                 </div>
 

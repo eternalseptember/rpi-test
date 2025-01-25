@@ -44,7 +44,7 @@
     <div class="page_title">
         {% block page_title %}
             {% if page_title %}
-                <h2>{{ page_title }}</h2>
+                <h2>{{ page_title | safe }}</h2>
             {% endif %}
         {% endblock page_title %}
     </div>

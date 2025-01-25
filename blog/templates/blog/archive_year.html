@@ -5,7 +5,7 @@
     {% if page_obj %}
         <!-- Prints the calendar first. -->
          <div class="calendar_container">
-            {{ cal }}
+            {{ cal | safe }}
          </div>
 
         <!-- Then prints the post list. -->

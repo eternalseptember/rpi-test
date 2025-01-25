@@ -15,8 +15,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 ### Additional Changes
 
 * In `settings.py`, set the `TIME_ZONE`, and added `APPEND_SLASH = True`.
-* In the `TEMPLATES` -> `OPTIONS` section of `settings.py`, set `autoescape = False` and added `highlighter` and `month_name` template tags.
-    * Turning off autoescape shouldn't be done for projects that will be hosted on the internet with other users, but this project is ultimately going to be hosted on an internal raspberry pi where I'm going to be the only user.
+* In the `TEMPLATES` -> `OPTIONS` section of `settings.py`, and added `highlighter` and `month_name` template tags.
 * Implemented static files for css and javascript.
 * Enabled image upload to the media folder.
 * Added a description field to categories and updated the category template accordingly.
@@ -116,9 +115,6 @@ In the index template:
 * [How to Render Markdown Content in Django](https://bastakiss.com/blog/django-6/how-to-render-markdown-content-in-django-388) Search result I found on duckduckgo.
 * [How to Use Django-Markdownx for Your Blog](https://blog.existenceundefined.com/2023/07/test.html) Google gives me this search result a week after I resolved this issue, while researching a different problem (how to customize markdownxadminpanel).
 
-#### Note
-
-I have since turned off autoescape in `settings.py` (because this is intended to be a personal project hosted on a LAN where I'm the only user), so I have removed the `| safe` filters from my templates.
 
 ### Stray Paragraph Tag
 
@@ -199,6 +195,13 @@ In the associated view (in  `views.py`), I checked if there is a request. Need t
     else:
         search_results = Post.objects.none()
 ```
+
+### Pop-up Window in Admin Window Did Not Close When Creating a New Category
+
+In admin, when creating a new post, clicking the button to create a new category will open a popup window. After entering a new category name and hitting close, the pop-up window did not close. It became a white box, and the post did not refresh with the newly-created category.
+
+**Culprit is `'autoescape': False` in `settings.py`!**
+
 
 ### Autoescape:False Seemingly Being Ignored
 
