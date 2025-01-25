@@ -5,8 +5,13 @@
 
     <script>
         $(document).ready(function() {
+            // Hides the preview by default.
+            $(".markdownx-preview").hide();
+
             // Toggles the preview.
             $(".mdx_preview_toggle").click(function() {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
                 $(this).next("div").toggle();
             });
         });
