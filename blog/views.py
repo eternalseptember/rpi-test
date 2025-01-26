@@ -49,7 +49,7 @@ def blog_category(request, category):
         "category": category,
         "page_obj": posts,
     }
-    return render(request, "blog/category_definition.html", context)
+    return render(request, "blog/category.html", context)
 
 
 
@@ -67,7 +67,7 @@ def blog_detail(request, pk):
             "page_title": '<a href="{}">{}</a>'.format(post_edit_url, post.title),
             "post": post,
         }
-        return render(request, "blog/detail_extended.html", context)
+        return render(request, "blog/detail.html", context)
 
     except Post.DoesNotExist:
         return render(None, "blog/404.html", context={})

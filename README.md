@@ -56,7 +56,7 @@ The foundation of this blog project began from [this tutorial](https://realpytho
 * Toggle light and dark modes, and the choice is saved in a localsession cookie.
 * Basic search query (full-text search with postgres in the post's title **or** body) is highlighted.
 * Basic search results are paginated.
-* Pagination on the index ~~and category pages~~. The template for this view (`templates/blog/category.html`) is still available.
+* Pagination on the index and category pages. The template for this view (`templates/blog/category.html`) is still available.
 * There is an alternate category page (`templates/blog/category_definition.html`) that lists posts that are tagged with that category and comments on that connection, if any.
 * Next/Prev links on each entry's page.
 * The title of each entry's page is a link to its admin edit page.
