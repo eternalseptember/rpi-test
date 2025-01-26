@@ -1,6 +1,7 @@
 from blog.models import Category, Post, Connection
 from django.contrib import admin
 from django.db.models import Count
+from django.template.defaultfilters import truncatechars
 from django.urls import reverse
 from django.utils.html import format_html
 from markdownx.admin import MarkdownxModelAdmin
@@ -18,7 +19,7 @@ class Connection_Inline(admin.TabularInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     # Model overview management page.
-    list_display = ("name", "post_count", "description", "view_category")
+    list_display = ("name", "post_count", "get_description", "view_category")
     ordering = ["name"]
     list_per_page = 20
 
@@ -39,8 +40,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
     # Shows a truncated description.
     @admin.display(description="description")
-    def description(self, obj):
-        return obj.description[:40]
+    def get_description(self, obj):
+        return truncatechars(obj.description, 35)
     
 
     # Generates a list of links to posts under a category.
