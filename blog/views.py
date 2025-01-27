@@ -1,10 +1,9 @@
-from blog.calendar import BlogHTMLCalendar
-from blog.filters import PostFilter
-from blog.models import Post, Category, Connection
+from .calendar import HTMLCalendar
+from .filters import PostFilter
+from .models import *
 from datetime import date
 from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.core.paginator import Paginator
-from django.db.models import Q
 from django.db.models.functions import TruncMonth
 from django.shortcuts import render
 from django.urls import reverse
@@ -47,7 +46,7 @@ def blog_category(request, category):
         "site_title": 'Category: {}'.format(category),
         "page_title": page_title,
         "category": category,
-        "page_obj": posts,
+        "page_obj": paginate(posts, request),
     }
     return render(request, "blog/category.html", context)
 
@@ -123,7 +122,8 @@ def advanced_search(request):
 
     # Omitting a check for the custom filters ("and_categories" and "sort_how").
     # If those are the only options selected, then return nothing.
-    if s1 or s2 or s3 or s4 or s5 or s6 or s7:
+    valid_requests = [s1, s2, s3, s4, s5, s6, s7]
+    if any(valid_requests):
         search_results = post_filter.qs
     else:
         search_results = Post.objects.none()
@@ -248,7 +248,7 @@ class ArchiveYearView(ArchiveTimeView):
             ).order_by("created_on")
 
         search_results = posts_list.annotate(month=TruncMonth("created_on"))
-        cal = BlogHTMLCalendar(year, posts_list).printyear()
+        cal = HTMLCalendar(year, posts_list).printyear()
 
         # Steps for nav links
         dates = Post.objects.dates("created_on", "year", "ASC")

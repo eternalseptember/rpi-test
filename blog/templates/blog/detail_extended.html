@@ -41,14 +41,14 @@
 
 
 {% block page_navigation %}
-    {% if post.get_previous_by_created_on %}
-        <a href="{% url "blog_detail" post.get_previous_by_created_on.pk %}">prev</a>
+    {% if post.get_next_by_created_on.pk %}
+        <a href="{% url "blog_detail" post.get_next_by_created_on.pk %}">newer</a>
     {% endif %}
 
     <span class="current_page">~</span>
 
-    {% if post.get_next_by_created_on.pk %}
-        <a href="{% url "blog_detail" post.get_next_by_created_on.pk %}">next</a>
+    {% if post.get_previous_by_created_on %}
+        <a href="{% url "blog_detail" post.get_previous_by_created_on.pk %}">older</a>
     {% endif %}
 {% endblock page_navigation %}
 

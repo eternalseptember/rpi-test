@@ -10,8 +10,8 @@
 
         <!-- Then prints the post list. -->
         {% regroup page_obj by month as post_months %}
-        <!-- Regroup produces a list of group objects. 
-         Each group object has two attributes: grouper and list. -->
+        <!-- Regroup produces a list of group objects. -->
+        <!-- Each group object has two attributes: grouper and list. -->
 
         {% for monthly in post_months %}
             <div class="monthly_post_list">
@@ -41,9 +41,9 @@
 
 
 {% block page_navigation %}
-    {% if prev_year %}
-        <a href="{% url "archive_year" prev_year.0 %}">
-            {{ prev_year.0 }}
+    {% if next_year %}
+        <a href="{% url "archive_year" next_year.0 %}">
+            {{ next_year.0 }}
         </a>
     {% endif %}
 
@@ -51,9 +51,9 @@
         ~{{ this_year.0 }}~
     </span>
 
-    {% if next_year %}
-        <a href="{% url "archive_year" next_year.0 %}">
-            {{ next_year.0 }}
+    {% if prev_year %}
+        <a href="{% url "archive_year" prev_year.0 %}">
+            {{ prev_year.0 }}
         </a>
     {% endif %}
 {% endblock page_navigation %}
