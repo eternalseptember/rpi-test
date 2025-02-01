@@ -6,22 +6,27 @@
     justify-content: center;
     flex-wrap: wrap;
 }
-
+/* The main landing page after removing the recent actions sidebar. */
+.colMS {
+    margin-right: 0px;
+}
 /* "Site Administration" or "Select ___ to change" headers. */
 #content > h1 {
     text-align: center;
 }
 
-/* The success/error messages when creating/editing a post. */
-.messagelist {
-    position: fixed;
-    bottom: 0px;
-}
 
+
+/* ********************************************************** */
 /* Label, dropdown menu, "Go" button, and number of items selected
    when looking at a model's overview page. */
 .actions {
     text-align: center;
+}
+/* The success/error messages when creating/editing a post. */
+.messagelist {
+    position: fixed;
+    bottom: 0px;
 }
 
 
@@ -30,7 +35,6 @@
 /* The size of a post's title box. */
 #post_form input#id_title {
     width: 600px;
-    /* width: 45em; */
 }
 
 /* Textbox while creating/editing a post. */

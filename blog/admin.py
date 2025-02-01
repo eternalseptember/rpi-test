@@ -22,6 +22,9 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "post_count", "get_description", "view_category")
     ordering = ["name"]
     list_per_page = 20
+    actions_on_top = False
+    actions_on_bottom = True
+    search_fields= ["name"]
 
     # When adding or editing a category.
     readonly_fields = ["get_posts", "view_category"]
